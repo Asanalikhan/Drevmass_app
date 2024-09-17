@@ -26,7 +26,6 @@ class OnboardingFragment : Fragment() {
         binding.btnNext.setOnClickListener {
             animateProgress()
         }
-
     }
     private fun animateProgress() {
         val animator = ObjectAnimator.ofInt(binding.progressBar1, "progress", 0, 100)
