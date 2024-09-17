@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark Colors -->
+    <color name="color_dark_1000">#181715</color>
+    <color name="color_dark_900">#302C28</color>
+    <color name="color_dark_alpha_650">#A6A4A3</color>
+    <color name="color_dark_alpha_300">#B8B7B7</color>
+    <color name="color_dark_alpha_200">#CBCBCB</color>
+    <color name="color_dark_alpha_40">#F1F1F1</color>
+
+    <!-- White Colors -->
+    <color name="color_white_1000">#FFFFFF</color>
+    <color name="color_white_alpha_940">#FFFFFFF0</color>
+    <color name="color_white_alpha_600">#FFFFFF99</color>
+    <color name="color_white_alpha_400">#FFFFFF66</color>
+
+    <!-- Brand Colors -->
+    <color name="color_brand_1000">#A79574</color>
+    <color name="color_brand_900">#B5A38B</color>
+    <color name="color_brand_700">#C0C9C1</color>
+    <color name="color_brand_600">#C8CCC9</color>
+    <color name="color_brand_500">#D0D1CE</color>
+    <color name="color_brand_400">#EBEFE9</color>
+    <color name="color_brand_300">#F3F1FB</color>
+    <color name="color_brand_alpha_900">#F9F9F9</color>
+
+    <!-- Gray Colors -->
+    <color name="color_gray_800">#787878</color>
+    <color name="color_gray_700">#989898</color>
+    <color name="color_gray_600">#A1A1A1</color>
+    <color name="color_gray_500">#E0E0DD</color>
+    <color name="color_gray_400">#ECEBEB</color>
+    <color name="color_gray_100">#F7F7F7</color>
+
+    <!-- Accent / Orange -->
+    <color name="color_orange_1000">#FFA53E</color>
+    <color name="color_orange_900">#FFC664</color>
+
+    <!-- Accent / Coral -->
+    <color name="color_coral_1000">#FA5C5C</color>
+
+    <!-- Accent / Blue -->
+    <color name="color_blue_1000">#007AFF</color>
+
+    <!-- Accent / Green -->
+    <color name="color_green_1000">#3ABD5B</color>
+</resources>
