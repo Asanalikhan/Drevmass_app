@@ -1,14 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_white_1000"
     tools:context=".presentation.registration.RegistrationFragment">
 
-    <TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:text="Regirsration Fragment" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_white_1000"
+        android:layout_marginStart="-12dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/up_toolbar" />
+    </androidx.appcompat.widget.Toolbar>
 
-</FrameLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="32dp" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="32dp" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/sf_display_bold"
+        android:text="@string/registration"
+        android:textColor="@color/color_dark_900"
+        android:textSize="28sp"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_container" />
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/sf_text_regular"
+        android:text="Мы с вами научимся заниматься на тренажере-массажере для спины Древмасс."
+        android:textColor="@color/color_gray_800"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:drawableStart="@drawable/ic_profile_24"
+        android:drawablePadding="12dp"
+        android:fontFamily="@font/sf_text_semibold"
+        android:hint="@string/your_name"
+        android:inputType="text"
+        android:textColor="@color/color_dark_1000"
+        android:textColorHint="@color/color_gray_600"
+        android:textSize="17sp"
+        android:background="@null"
+        android:drawableTint="@color/color_brand_900"
+        android:drawableEnd="@drawable/ic_cancel_24"
+        android:paddingBottom="12dp"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/tv_description" />
+    <View
+        android:id="@+id/v_name"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/color_gray_500"
+        app:layout_constraintTop_toBottomOf="@id/et_name"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:drawableStart="@drawable/ic_mail_24"
+        android:drawablePadding="12dp"
+        android:fontFamily="@font/sf_text_semibold"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/color_dark_1000"
+        android:textColorHint="@color/color_gray_600"
+        android:textSize="17sp"
+        android:background="@null"
+        android:drawableTint="@color/color_brand_900"
+        android:drawableEnd="@drawable/ic_cancel_24"
+        android:paddingBottom="12dp"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/v_name" />
+    <View
+        android:id="@+id/v_email"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/color_gray_500"
+        app:layout_constraintTop_toBottomOf="@id/et_email"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_phone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:drawableStart="@drawable/ic_phone_24"
+        android:drawablePadding="12dp"
+        android:fontFamily="@font/sf_text_semibold"
+        android:hint="@string/phone_number"
+        android:inputType="phone"
+        android:textColor="@color/color_dark_1000"
+        android:textColorHint="@color/color_gray_600"
+        android:textSize="17sp"
+        android:background="@null"
+        android:drawableTint="@color/color_brand_900"
+        android:drawableEnd="@drawable/ic_cancel_24"
+        android:paddingBottom="12dp"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/v_email" />
+    <View
+        android:id="@+id/v_phone"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/color_gray_500"
+        app:layout_constraintTop_toBottomOf="@id/et_phone"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:drawableStart="@drawable/ic_lock_24"
+        android:drawablePadding="12dp"
+        android:fontFamily="@font/sf_text_semibold"
+        android:hint="@string/type_password"
+        android:inputType="textPassword"
+        android:textColor="@color/color_dark_1000"
+        android:textColorHint="@color/color_gray_600"
+        android:textSize="17sp"
+        android:background="@null"
+        android:drawableTint="@color/color_brand_900"
+        android:drawableEnd="@drawable/ic_show_24"
+        android:paddingBottom="12dp"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/v_phone" />
+    <View
+        android:id="@+id/v_password"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/color_gray_500"
+        app:layout_constraintTop_toBottomOf="@id/et_password"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="58dp"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/already_have_an_account"
+            android:textColor="@color/color_dark_900"
+            android:textSize="15sp"
+            android:fontFamily="@font/sf_text_semibold"/>
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/to_login"
+            android:textColor="@color/color_brand_900"
+            android:textSize="15sp"
+            android:fontFamily="@font/sf_text_semibold"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,4 +7,10 @@
     <string name="onboarding_title_2">Наша цель</string>
     <string name="onboarding_title_3">Спина требует ежедневного ухода!</string>
     <string name="onboarding_description">Здоровье спины – это один из основных показателей комфорта жизни.</string>
+    <string name="your_name">Ваше имя</string>
+    <string name="email">Email</string>
+    <string name="type_password">Придумайте пароль</string>
+    <string name="phone_number">Номер телефона</string>
+    <string name="to_login">Войти</string>
+    <string name="already_have_an_account">Уже есть аккаунт?</string>
 </resources>
