@@ -44,4 +44,7 @@
 
     <!-- Accent / Green -->
     <color name="color_green_1000">#3ABD5B</color>
+
+    <color name="btn_bg_fill_disabled">#D3C8B3</color>
+
 </resources>

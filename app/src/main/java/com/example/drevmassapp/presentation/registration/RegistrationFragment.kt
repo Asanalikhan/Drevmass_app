@@ -1,16 +1,25 @@
 package com.example.drevmassapp.presentation.registration
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Rect
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.view.marginBottom
 import androidx.fragment.app.Fragment
 import com.example.drevmassapp.R
 import com.example.drevmassapp.databinding.FragmentRegistrationBinding
@@ -36,6 +45,33 @@ class RegistrationFragment : Fragment() {
         setupEditText(binding.etEmail, R.drawable.ic_mail_24, binding.vEmail)
         setupEditText(binding.etPhone, R.drawable.ic_phone_24, binding.vPhone)
         setupPasswordField()
+
+        setButtonMargin(800)
+
+        binding.etPassword.setOnEditorActionListener{ _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                
+                hideKeyboard(binding.etPassword)
+            }
+            true
+        }
+
+        binding.root.setOnClickListener {
+            hideKeyboard(binding.etPassword)
+        }
+    }
+
+    private fun hideKeyboard(view: View) {
+        binding.etPassword.clearFocus()
+        setButtonMargin(24)
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    private fun setButtonMargin(int: Int){
+        val params = binding.btnRegistration.layoutParams as ConstraintLayout.LayoutParams
+        params.bottomMargin = int
+        binding.btnRegistration.requestLayout()
     }
 
     private fun setupToolbar() {
@@ -50,12 +86,14 @@ class RegistrationFragment : Fragment() {
     private fun setupEditText(editText: EditText, leftDrawable: Int, backgroundView: View) {
         editText.apply {
             setOnFocusChangeListener { _, hasFocus ->
-                val backgroundRes = if (hasFocus) {
-                    R.drawable.background_credentials_focus
-                } else {
-                    R.drawable.background_credentials_unfocus
+                if(hasFocus){
+                    backgroundView.setBackgroundResource(R.drawable.background_credentials_focus)
+                    setButtonMargin(820)
                 }
-                backgroundView.setBackgroundResource(backgroundRes)
+                else{
+                    backgroundView.setBackgroundResource(R.drawable.background_credentials_unfocus)
+                    hideKeyboard(editText)
+                }
             }
 
             setOnTouchListener { _, event ->
@@ -86,6 +124,7 @@ class RegistrationFragment : Fragment() {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             })
+
         }
     }
 
@@ -118,13 +157,16 @@ class RegistrationFragment : Fragment() {
             }
 
             setOnFocusChangeListener { _, hasFocus ->
-                val backgroundRes = if (hasFocus) {
-                    R.drawable.background_credentials_focus
-                } else {
-                    R.drawable.background_credentials_unfocus
+                if(hasFocus){
+                    binding.vPassword.setBackgroundResource(R.drawable.background_credentials_focus)
+                    setButtonMargin(820)
                 }
-                binding.vPassword.setBackgroundResource(backgroundRes)
+                else{
+                    binding.vPassword.setBackgroundResource(R.drawable.background_credentials_unfocus)
+                    hideKeyboard(binding.etPassword)
+                }
             }
         }
+
     }
 }

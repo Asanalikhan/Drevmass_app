@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_white_1000"
@@ -11,12 +12,13 @@
         android:id="@+id/toolbar_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_white_1000"
         android:layout_marginStart="-12dp"
         android:layout_marginTop="40dp"
+        android:background="@color/color_white_1000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <include
             android:id="@+id/toolbar"
             layout="@layout/up_toolbar" />
@@ -28,6 +30,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="32dp" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineEnd"
         android:layout_width="wrap_content"
@@ -46,6 +49,7 @@
         android:textSize="28sp"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
         app:layout_constraintTop_toBottomOf="@id/toolbar_container" />
+
     <TextView
         android:id="@+id/tv_description"
         android:layout_width="0dp"
@@ -55,147 +59,169 @@
         android:text="Мы с вами научимся заниматься на тренажере-массажере для спины Древмасс."
         android:textColor="@color/color_gray_800"
         android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
-        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/et_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
+        android:background="@null"
         android:drawableStart="@drawable/ic_profile_24"
+        android:drawableEnd="@drawable/ic_cancel_24"
         android:drawablePadding="12dp"
+        android:drawableTint="@color/color_brand_900"
         android:fontFamily="@font/sf_text_semibold"
         android:hint="@string/your_name"
         android:inputType="text"
+        android:paddingBottom="12dp"
         android:textColor="@color/color_dark_1000"
         android:textColorHint="@color/color_gray_600"
         android:textSize="17sp"
-        android:background="@null"
-        android:drawableTint="@color/color_brand_900"
-        android:drawableEnd="@drawable/ic_cancel_24"
-        android:paddingBottom="12dp"
         app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
         app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
     <View
         android:id="@+id/v_name"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@color/color_gray_500"
-        app:layout_constraintTop_toBottomOf="@id/et_name"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
-        app:layout_constraintEnd_toEndOf="@id/guidelineEnd" />
+        app:layout_constraintTop_toBottomOf="@id/et_name" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/et_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="@null"
         android:drawableStart="@drawable/ic_mail_24"
+        android:drawableEnd="@drawable/ic_cancel_24"
         android:drawablePadding="12dp"
+        android:drawableTint="@color/color_brand_900"
         android:fontFamily="@font/sf_text_semibold"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
+        android:paddingBottom="12dp"
         android:textColor="@color/color_dark_1000"
         android:textColorHint="@color/color_gray_600"
         android:textSize="17sp"
-        android:background="@null"
-        android:drawableTint="@color/color_brand_900"
-        android:drawableEnd="@drawable/ic_cancel_24"
-        android:paddingBottom="12dp"
         app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
         app:layout_constraintTop_toBottomOf="@id/v_name" />
+
     <View
         android:id="@+id/v_email"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@color/color_gray_500"
-        app:layout_constraintTop_toBottomOf="@id/et_email"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
-        app:layout_constraintEnd_toEndOf="@id/guidelineEnd" />
+        app:layout_constraintTop_toBottomOf="@id/et_email" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/et_phone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="@null"
         android:drawableStart="@drawable/ic_phone_24"
+        android:drawableEnd="@drawable/ic_cancel_24"
         android:drawablePadding="12dp"
+        android:drawableTint="@color/color_brand_900"
         android:fontFamily="@font/sf_text_semibold"
         android:hint="@string/phone_number"
         android:inputType="phone"
+        android:paddingBottom="12dp"
         android:textColor="@color/color_dark_1000"
         android:textColorHint="@color/color_gray_600"
         android:textSize="17sp"
-        android:background="@null"
-        android:drawableTint="@color/color_brand_900"
-        android:drawableEnd="@drawable/ic_cancel_24"
-        android:paddingBottom="12dp"
         app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
         app:layout_constraintTop_toBottomOf="@id/v_email" />
+
     <View
         android:id="@+id/v_phone"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@color/color_gray_500"
-        app:layout_constraintTop_toBottomOf="@id/et_phone"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
-        app:layout_constraintEnd_toEndOf="@id/guidelineEnd" />
+        app:layout_constraintTop_toBottomOf="@id/et_phone" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/et_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="@null"
         android:drawableStart="@drawable/ic_lock_24"
+        android:drawableEnd="@drawable/ic_show_24"
         android:drawablePadding="12dp"
+        android:drawableTint="@color/color_brand_900"
         android:fontFamily="@font/sf_text_semibold"
         android:hint="@string/type_password"
         android:inputType="textPassword"
+        android:paddingBottom="12dp"
         android:textColor="@color/color_dark_1000"
         android:textColorHint="@color/color_gray_600"
         android:textSize="17sp"
-        android:background="@null"
-        android:drawableTint="@color/color_brand_900"
-        android:drawableEnd="@drawable/ic_show_24"
-        android:paddingBottom="12dp"
+        android:imeOptions="actionDone"
         app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
         app:layout_constraintTop_toBottomOf="@id/v_phone" />
+
     <View
         android:id="@+id/v_password"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@color/color_gray_500"
-        app:layout_constraintTop_toBottomOf="@id/et_password"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
-        app:layout_constraintEnd_toEndOf="@id/guidelineEnd" />
+        app:layout_constraintTop_toBottomOf="@id/et_password" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_registration"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/background_btn_50_disabled"
+        android:fontFamily="@font/sf_text_semibold"
+        android:text="@string/registration"
+        android:textColor="@color/color_white_1000"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toTopOf="@id/ll_login"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart" />
 
     <LinearLayout
+        android:id="@+id/ll_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="58dp"
-        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="@id/guidelineStart">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_text_semibold"
             android:text="@string/already_have_an_account"
             android:textColor="@color/color_dark_900"
-            android:textSize="15sp"
-            android:fontFamily="@font/sf_text_semibold"/>
+            android:textSize="15sp" />
+
         <TextView
             android:id="@+id/tv_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_text_semibold"
             android:text="@string/to_login"
             android:textColor="@color/color_brand_900"
-            android:textSize="15sp"
-            android:fontFamily="@font/sf_text_semibold"/>
+            android:textSize="15sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
