@@ -45,12 +45,10 @@ class RegistrationFragment : Fragment() {
         setupEditText(binding.etEmail, R.drawable.ic_mail_24, binding.vEmail)
         setupEditText(binding.etPhone, R.drawable.ic_phone_24, binding.vPhone)
         setupPasswordField()
-
-        setButtonMargin(800)
+        setupEditTexts()
 
         binding.etPassword.setOnEditorActionListener{ _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                
                 hideKeyboard(binding.etPassword)
             }
             true
@@ -79,6 +77,19 @@ class RegistrationFragment : Fragment() {
             tvToolbarTitle.visibility = View.GONE
             icBtnInfo.visibility = View.GONE
             icBtnBack.setOnClickListener { requireActivity().onBackPressed() }
+        }
+    }
+
+    private fun checkFieldsForEmptyValues() {
+        val isAllFieldsFilled = binding.etName.text!!.isNotEmpty() &&
+                binding.etEmail.text!!.isNotEmpty() &&
+                binding.etPhone.text!!.isNotEmpty() &&
+                binding.etPassword.text!!.isNotEmpty()
+
+        if (isAllFieldsFilled) {
+            binding.btnRegistration.setBackgroundResource(R.drawable.background_btn_50_able) // Замените на ваш ресурс для активного состояния
+        } else {
+            binding.btnRegistration.setBackgroundResource(R.drawable.background_btn_50_disabled) // Замените на ваш ресурс для неактивного состояния
         }
     }
 
@@ -128,6 +139,20 @@ class RegistrationFragment : Fragment() {
         }
     }
 
+    private fun setupEditTexts() {
+        val editTexts = listOf(binding.etName, binding.etEmail, binding.etPhone, binding.etPassword)
+
+        editTexts.forEach { editText ->
+            editText.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                    checkFieldsForEmptyValues()
+                }
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            })
+        }
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     private fun setupPasswordField() {
         var isPasswordVisible = false
@@ -167,6 +192,5 @@ class RegistrationFragment : Fragment() {
                 }
             }
         }
-
     }
 }
