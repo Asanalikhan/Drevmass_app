@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.marginBottom
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.drevmassapp.R
 import com.example.drevmassapp.databinding.FragmentRegistrationBinding
 
@@ -40,22 +41,27 @@ class RegistrationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupToolbar()
-        setupEditText(binding.etName, R.drawable.ic_profile_24, binding.vName)
-        setupEditText(binding.etEmail, R.drawable.ic_mail_24, binding.vEmail)
-        setupEditText(binding.etPhone, R.drawable.ic_phone_24, binding.vPhone)
-        setupPasswordField()
-        setupEditTexts()
+        binding.apply {
+            setupToolbar()
+            setupEditText(etName, R.drawable.ic_profile_24, vName)
+            setupEditText(etEmail, R.drawable.ic_mail_24, vEmail)
+            setupEditText(etPhone, R.drawable.ic_phone_24, vPhone)
+            setupPasswordField()
+            setupEditTexts()
 
-        binding.etPassword.setOnEditorActionListener{ _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                hideKeyboard(binding.etPassword)
+            etPassword.setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    hideKeyboard(binding.etPassword)
+                }
+                true
             }
-            true
-        }
 
-        binding.root.setOnClickListener {
-            hideKeyboard(binding.etPassword)
+            root.setOnClickListener {
+                hideKeyboard(etPassword)
+            }
+            tvLogin.setOnClickListener {
+                findNavController().navigate(R.id.action_registrationFragment_to_loginFragment)
+            }
         }
     }
 
@@ -66,7 +72,7 @@ class RegistrationFragment : Fragment() {
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    private fun setButtonMargin(int: Int){
+    private fun setButtonMargin(int: Int) {
         val params = binding.btnRegistration.layoutParams as ConstraintLayout.LayoutParams
         params.bottomMargin = int
         binding.btnRegistration.requestLayout()
@@ -81,32 +87,32 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun checkFieldsForEmptyValues() {
-        val isAllFieldsFilled = binding.etName.text!!.isNotEmpty() &&
-                binding.etEmail.text!!.isNotEmpty() &&
-                binding.etPhone.text!!.isNotEmpty() &&
-                binding.etPassword.text!!.isNotEmpty()
+        val isAllFieldsFilled =
+            binding.etName.text!!.isNotEmpty() && binding.etEmail.text!!.isNotEmpty() && binding.etPhone.text!!.isNotEmpty() && binding.etPassword.text!!.isNotEmpty()
 
         if (isAllFieldsFilled) {
-            binding.btnRegistration.setBackgroundResource(R.drawable.background_btn_50_able) // Замените на ваш ресурс для активного состояния
+            binding.btnRegistration.setBackgroundResource(R.drawable.background_btn_50_able)
         } else {
-            binding.btnRegistration.setBackgroundResource(R.drawable.background_btn_50_disabled) // Замените на ваш ресурс для неактивного состояния
+            binding.btnRegistration.setBackgroundResource(R.drawable.background_btn_50_disabled)
+        }
+    }
+
+    private fun setFocusChange(editText: EditText, backgroundView: View) {
+        editText.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                backgroundView.setBackgroundResource(R.drawable.background_credentials_focus)
+                setButtonMargin(820)
+            } else {
+                backgroundView.setBackgroundResource(R.drawable.background_credentials_unfocus)
+                hideKeyboard(editText)
+            }
         }
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun setupEditText(editText: EditText, leftDrawable: Int, backgroundView: View) {
         editText.apply {
-            setOnFocusChangeListener { _, hasFocus ->
-                if(hasFocus){
-                    backgroundView.setBackgroundResource(R.drawable.background_credentials_focus)
-                    setButtonMargin(820)
-                }
-                else{
-                    backgroundView.setBackgroundResource(R.drawable.background_credentials_unfocus)
-                    hideKeyboard(editText)
-                }
-            }
-
+            setFocusChange(this, backgroundView)
             setOnTouchListener { _, event ->
                 if (event.action == MotionEvent.ACTION_UP) {
                     val clearIcon = compoundDrawables[2]
@@ -126,12 +132,9 @@ class RegistrationFragment : Fragment() {
                 override fun afterTextChanged(s: Editable?) {
                     val rightDrawable = if (s?.isNotEmpty() == true) {
                         R.drawable.ic_cancel_24
-                    } else {
-                        0
-                    }
+                    } else { 0 }
                     setCompoundDrawablesWithIntrinsicBounds(leftDrawable, 0, rightDrawable, 0)
                 }
-
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             })
@@ -144,9 +147,7 @@ class RegistrationFragment : Fragment() {
 
         editTexts.forEach { editText ->
             editText.addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(s: Editable?) {
-                    checkFieldsForEmptyValues()
-                }
+                override fun afterTextChanged(s: Editable?) { checkFieldsForEmptyValues() }
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             })
@@ -181,16 +182,7 @@ class RegistrationFragment : Fragment() {
                 false
             }
 
-            setOnFocusChangeListener { _, hasFocus ->
-                if(hasFocus){
-                    binding.vPassword.setBackgroundResource(R.drawable.background_credentials_focus)
-                    setButtonMargin(820)
-                }
-                else{
-                    binding.vPassword.setBackgroundResource(R.drawable.background_credentials_unfocus)
-                    hideKeyboard(binding.etPassword)
-                }
-            }
+            setFocusChange(this, binding.vPassword)
         }
     }
 }

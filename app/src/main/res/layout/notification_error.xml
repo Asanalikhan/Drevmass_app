@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/fl_notification"
+    android:layout_height="100dp"
+    android:background="@drawable/background_notification"
+    android:backgroundTint="@color/color_coral_1000">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|bottom"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_attention_24" />
+    <TextView
+        android:id="@+id/tv_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|bottom"
+        android:text="Неверный логин или пароль"
+        android:textColor="@color/color_white_1000"
+        android:textSize="15sp"
+        android:layout_marginStart="52dp"
+        android:layout_marginBottom="18dp"
+        android:fontFamily="@font/sf_text_semibold"/>
+</FrameLayout>

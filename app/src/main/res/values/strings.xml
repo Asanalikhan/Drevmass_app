@@ -13,4 +13,7 @@
     <string name="phone_number">Номер телефона</string>
     <string name="to_login">Войти</string>
     <string name="already_have_an_account">Уже есть аккаунт?</string>
+    <string name="welcome_back">С возвращением!</string>
+    <string name="password">Пароль</string>
+    <string name="forgot_password">Забыли пароль?</string>
 </resources>

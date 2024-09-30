@@ -47,20 +47,22 @@ class OnboardingFragment : Fragment() {
 
     }
     private fun switch(position : Int) {
-        if(position == 0){
-            binding.progressBar1.progress = 100
-            binding.progressBar2.progress = 0
-            binding.progressBar3.progress = 0
-        }
-        else if(position == 1){
-            binding.progressBar1.progress = 100
-            binding.progressBar2.progress = 100
-            binding.progressBar3.progress = 0
-        }
-        else if(position == 2){
-            binding.progressBar1.progress = 100
-            binding.progressBar2.progress = 100
-            binding.progressBar3.progress = 100
+        when (position) {
+            0 -> {
+                binding.progressBar1.progress = 100
+                binding.progressBar2.progress = 0
+                binding.progressBar3.progress = 0
+            }
+            1 -> {
+                binding.progressBar1.progress = 100
+                binding.progressBar2.progress = 100
+                binding.progressBar3.progress = 0
+            }
+            2 -> {
+                binding.progressBar1.progress = 100
+                binding.progressBar2.progress = 100
+                binding.progressBar3.progress = 100
+            }
         }
     }
 }
