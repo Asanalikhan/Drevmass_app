@@ -2,12 +2,10 @@ package com.example.drevmassapp.presentation.registration
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Rect
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -15,11 +13,9 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.Toast
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.view.marginBottom
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.drevmassapp.R
@@ -43,9 +39,9 @@ class RegistrationFragment : Fragment() {
 
         binding.apply {
             setupToolbar()
-            setupEditText(etName, R.drawable.ic_profile_24, vName)
-            setupEditText(etEmail, R.drawable.ic_mail_24, vEmail)
-            setupEditText(etPhone, R.drawable.ic_phone_24, vPhone)
+            setupEditText(etName, vName)
+            setupEditText(etEmail, vEmail)
+            setupEditText(etPhone, vPhone)
             setupPasswordField()
             setupEditTexts()
 
@@ -62,7 +58,47 @@ class RegistrationFragment : Fragment() {
             tvLogin.setOnClickListener {
                 findNavController().navigate(R.id.action_registrationFragment_to_loginFragment)
             }
+
+            btnRegistration.setOnClickListener {
+                validateFields()
+            }
         }
+    }
+
+    private fun validateFields() {
+        if (checkName() && checkPhone() && checkEmail() && checkPassword()) {
+            binding.toolbarContainer.visibility = View.VISIBLE
+            binding.ivBackground.flNotification.visibility = View.GONE
+            setField(binding.ivName, binding.vName, R.drawable.ic_profile_24, R.drawable.background_credentials_unfocus)
+            setField(binding.ivPhone, binding.vPhone, R.drawable.ic_phone_24, R.drawable.background_credentials_unfocus)
+            setField(binding.ivEmail, binding.vEmail, R.drawable.ic_mail_24, R.drawable.background_credentials_unfocus)
+            setField(binding.ivPassword, binding.vPassword, R.drawable.ic_lock_24, R.drawable.background_credentials_unfocus)
+        } else {
+            binding.toolbarContainer.visibility = View.GONE
+            binding.ivBackground.flNotification.visibility = View.VISIBLE
+            setField(binding.ivName, binding.vName, R.drawable.ic_profile_error_24, R.drawable.background_credentials_error)
+            setField(binding.ivPhone, binding.vPhone, R.drawable.ic_phone_error_24, R.drawable.background_credentials_error)
+            setField(binding.ivEmail, binding.vEmail, R.drawable.ic_mail_error_24, R.drawable.background_credentials_error)
+            setField(binding.ivPassword, binding.vPassword, R.drawable.ic_lock_error_24, R.drawable.background_credentials_error)
+        }
+    }
+
+    private fun checkName(): Boolean {
+        return binding.etName.text.toString().length >= 6
+    }
+    private fun checkPhone(): Boolean {
+        return binding.etPhone.text.toString().length >= 10
+    }
+    private fun checkEmail(): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches()
+    }
+    private fun checkPassword(): Boolean {
+        return binding.etPassword.text.toString().length >= 6
+    }
+
+    private fun setField(imageView: ImageView, backgroundView: View, src: Int, drawable: Int) {
+        imageView.setImageResource(src)
+        backgroundView.setBackgroundResource(drawable)
     }
 
     private fun hideKeyboard(view: View) {
@@ -110,7 +146,7 @@ class RegistrationFragment : Fragment() {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private fun setupEditText(editText: EditText, leftDrawable: Int, backgroundView: View) {
+    private fun setupEditText(editText: EditText, backgroundView: View) {
         editText.apply {
             setFocusChange(this, backgroundView)
             setOnTouchListener { _, event ->
@@ -127,13 +163,13 @@ class RegistrationFragment : Fragment() {
                 false
             }
 
-            setCompoundDrawablesWithIntrinsicBounds(leftDrawable, 0, 0, 0)
+            setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
             addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                     val rightDrawable = if (s?.isNotEmpty() == true) {
                         R.drawable.ic_cancel_24
                     } else { 0 }
-                    setCompoundDrawablesWithIntrinsicBounds(leftDrawable, 0, rightDrawable, 0)
+                    setCompoundDrawablesWithIntrinsicBounds(0, 0, rightDrawable, 0)
                 }
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}

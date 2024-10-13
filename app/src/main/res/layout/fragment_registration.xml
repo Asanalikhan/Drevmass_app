@@ -8,6 +8,10 @@
     android:background="@color/color_white_1000"
     tools:context=".presentation.registration.RegistrationFragment">
 
+    <include
+        android:id="@+id/iv_background"
+        android:visibility="gone"
+        layout="@layout/notification_error" />
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_container"
         android:layout_width="match_parent"
@@ -15,9 +19,10 @@
         android:layout_marginStart="-12dp"
         android:layout_marginTop="40dp"
         android:background="@color/color_white_1000"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/iv_background">
 
         <include
             android:id="@+id/toolbar"
@@ -69,7 +74,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:background="@null"
-        android:drawableStart="@drawable/ic_profile_24"
         android:drawableEnd="@drawable/ic_cancel_24"
         android:drawablePadding="12dp"
         android:drawableTint="@color/color_brand_900"
@@ -77,12 +81,21 @@
         android:hint="@string/your_name"
         android:inputType="text"
         android:paddingBottom="12dp"
+        android:paddingStart="35dp"
         android:textColor="@color/color_dark_1000"
         android:textColorHint="@color/color_gray_600"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
         app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
+    <ImageView
+        android:id="@+id/iv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toTopOf="@id/et_name"
+        app:srcCompat="@drawable/ic_profile_24" />
 
     <View
         android:id="@+id/v_name"
@@ -99,9 +112,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@null"
-        android:drawableStart="@drawable/ic_mail_24"
         android:drawableEnd="@drawable/ic_cancel_24"
         android:drawablePadding="12dp"
+        android:paddingStart="35dp"
         android:drawableTint="@color/color_brand_900"
         android:fontFamily="@font/sf_text_semibold"
         android:hint="@string/email"
@@ -113,6 +126,14 @@
         app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
         app:layout_constraintTop_toBottomOf="@id/v_name" />
+
+    <ImageView
+        android:id="@+id/iv_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toTopOf="@id/et_email"
+        app:srcCompat="@drawable/ic_mail_24" />
 
     <View
         android:id="@+id/v_email"
@@ -129,8 +150,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@null"
-        android:drawableStart="@drawable/ic_phone_24"
         android:drawableEnd="@drawable/ic_cancel_24"
+        android:paddingStart="35dp"
         android:drawablePadding="12dp"
         android:drawableTint="@color/color_brand_900"
         android:fontFamily="@font/sf_text_semibold"
@@ -143,6 +164,14 @@
         app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
         app:layout_constraintTop_toBottomOf="@id/v_email" />
+
+    <ImageView
+        android:id="@+id/iv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toTopOf="@id/et_phone"
+        app:srcCompat="@drawable/ic_phone_24" />
 
     <View
         android:id="@+id/v_phone"
@@ -159,9 +188,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@null"
-        android:drawableStart="@drawable/ic_lock_24"
         android:drawableEnd="@drawable/ic_show_24"
         android:drawablePadding="12dp"
+        android:paddingStart="35dp"
         android:drawableTint="@color/color_brand_900"
         android:fontFamily="@font/sf_text_semibold"
         android:hint="@string/type_password"
@@ -174,6 +203,14 @@
         app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
         app:layout_constraintTop_toBottomOf="@id/v_phone" />
+
+    <ImageView
+        android:id="@+id/iv_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toTopOf="@id/et_password"
+        app:srcCompat="@drawable/ic_lock_24" />
 
     <View
         android:id="@+id/v_password"
