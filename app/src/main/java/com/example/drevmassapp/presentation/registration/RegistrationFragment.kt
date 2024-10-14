@@ -66,32 +66,78 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun validateFields() {
+        if (!checkFieldsForEmptyValues()) return
+        hideKeyboard(binding.etPassword)
         if (checkName() && checkPhone() && checkEmail() && checkPassword()) {
             binding.toolbarContainer.visibility = View.VISIBLE
             binding.ivBackground.flNotification.visibility = View.GONE
-            setField(binding.ivName, binding.vName, R.drawable.ic_profile_24, R.drawable.background_credentials_unfocus)
-            setField(binding.ivPhone, binding.vPhone, R.drawable.ic_phone_24, R.drawable.background_credentials_unfocus)
-            setField(binding.ivEmail, binding.vEmail, R.drawable.ic_mail_24, R.drawable.background_credentials_unfocus)
-            setField(binding.ivPassword, binding.vPassword, R.drawable.ic_lock_24, R.drawable.background_credentials_unfocus)
+            setField(
+                binding.ivName,
+                binding.vName,
+                R.drawable.ic_profile_24,
+                R.drawable.background_credentials_unfocus
+            )
+            setField(
+                binding.ivPhone,
+                binding.vPhone,
+                R.drawable.ic_phone_24,
+                R.drawable.background_credentials_unfocus
+            )
+            setField(
+                binding.ivEmail,
+                binding.vEmail,
+                R.drawable.ic_mail_24,
+                R.drawable.background_credentials_unfocus
+            )
+            setField(
+                binding.ivPassword,
+                binding.vPassword,
+                R.drawable.ic_lock_24,
+                R.drawable.background_credentials_unfocus
+            )
         } else {
             binding.toolbarContainer.visibility = View.GONE
             binding.ivBackground.flNotification.visibility = View.VISIBLE
-            setField(binding.ivName, binding.vName, R.drawable.ic_profile_error_24, R.drawable.background_credentials_error)
-            setField(binding.ivPhone, binding.vPhone, R.drawable.ic_phone_error_24, R.drawable.background_credentials_error)
-            setField(binding.ivEmail, binding.vEmail, R.drawable.ic_mail_error_24, R.drawable.background_credentials_error)
-            setField(binding.ivPassword, binding.vPassword, R.drawable.ic_lock_error_24, R.drawable.background_credentials_error)
+            setField(
+                binding.ivName,
+                binding.vName,
+                R.drawable.ic_profile_error_24,
+                R.drawable.background_credentials_error
+            )
+            setField(
+                binding.ivPhone,
+                binding.vPhone,
+                R.drawable.ic_phone_error_24,
+                R.drawable.background_credentials_error
+            )
+            setField(
+                binding.ivEmail,
+                binding.vEmail,
+                R.drawable.ic_mail_error_24,
+                R.drawable.background_credentials_error
+            )
+            setField(
+                binding.ivPassword,
+                binding.vPassword,
+                R.drawable.ic_lock_error_24,
+                R.drawable.background_credentials_error
+            )
         }
     }
 
     private fun checkName(): Boolean {
         return binding.etName.text.toString().length >= 6
     }
+
     private fun checkPhone(): Boolean {
         return binding.etPhone.text.toString().length >= 10
     }
+
     private fun checkEmail(): Boolean {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches()
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString())
+            .matches()
     }
+
     private fun checkPassword(): Boolean {
         return binding.etPassword.text.toString().length >= 6
     }
@@ -103,7 +149,10 @@ class RegistrationFragment : Fragment() {
 
     private fun hideKeyboard(view: View) {
         binding.etPassword.clearFocus()
-        setButtonMargin(24)
+        binding.etName.clearFocus()
+        binding.etEmail.clearFocus()
+        binding.etPhone.clearFocus()
+        setButtonMargin(64)
         val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
@@ -122,7 +171,7 @@ class RegistrationFragment : Fragment() {
         }
     }
 
-    private fun checkFieldsForEmptyValues() {
+    private fun checkFieldsForEmptyValues(): Boolean {
         val isAllFieldsFilled =
             binding.etName.text!!.isNotEmpty() && binding.etEmail.text!!.isNotEmpty() && binding.etPhone.text!!.isNotEmpty() && binding.etPassword.text!!.isNotEmpty()
 
@@ -131,15 +180,17 @@ class RegistrationFragment : Fragment() {
         } else {
             binding.btnRegistration.setBackgroundResource(R.drawable.background_btn_50_disabled)
         }
+        return isAllFieldsFilled
     }
 
-    private fun setFocusChange(editText: EditText, backgroundView: View) {
+    private fun setFocusChange(editText: EditText, backgroundView: View, isPassword: Boolean) {
         editText.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 backgroundView.setBackgroundResource(R.drawable.background_credentials_focus)
                 setButtonMargin(820)
             } else {
                 backgroundView.setBackgroundResource(R.drawable.background_credentials_unfocus)
+                if(!isPassword) editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
                 hideKeyboard(editText)
             }
         }
@@ -148,7 +199,7 @@ class RegistrationFragment : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     private fun setupEditText(editText: EditText, backgroundView: View) {
         editText.apply {
-            setFocusChange(this, backgroundView)
+            setFocusChange(this, backgroundView, false)
             setOnTouchListener { _, event ->
                 if (event.action == MotionEvent.ACTION_UP) {
                     val clearIcon = compoundDrawables[2]
@@ -168,10 +219,20 @@ class RegistrationFragment : Fragment() {
                 override fun afterTextChanged(s: Editable?) {
                     val rightDrawable = if (s?.isNotEmpty() == true) {
                         R.drawable.ic_cancel_24
-                    } else { 0 }
+                    } else {
+                        0
+                    }
                     setCompoundDrawablesWithIntrinsicBounds(0, 0, rightDrawable, 0)
                 }
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             })
 
@@ -183,8 +244,18 @@ class RegistrationFragment : Fragment() {
 
         editTexts.forEach { editText ->
             editText.addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(s: Editable?) { checkFieldsForEmptyValues() }
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun afterTextChanged(s: Editable?) {
+                    checkFieldsForEmptyValues()
+                }
+
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             })
         }
@@ -207,8 +278,13 @@ class RegistrationFragment : Fragment() {
                                 InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
                             }
                             setCompoundDrawablesWithIntrinsicBounds(
-                                ContextCompat.getDrawable(requireContext(), R.drawable.ic_lock_24), null,
-                                ContextCompat.getDrawable(requireContext(), if (isPasswordVisible) R.drawable.ic_show_off_24 else R.drawable.ic_show_24), null
+                                ContextCompat.getDrawable(requireContext(), R.drawable.ic_lock_24),
+                                null,
+                                ContextCompat.getDrawable(
+                                    requireContext(),
+                                    if (isPasswordVisible) R.drawable.ic_show_off_24 else R.drawable.ic_show_24
+                                ),
+                                null
                             )
                             setSelection(text!!.length)
                             return@setOnTouchListener true
@@ -218,7 +294,7 @@ class RegistrationFragment : Fragment() {
                 false
             }
 
-            setFocusChange(this, binding.vPassword)
+            setFocusChange(this, binding.vPassword, true)
         }
     }
 }

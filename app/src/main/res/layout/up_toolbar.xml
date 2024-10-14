@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="42dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_reset_fragment"
     android:weightSum="3">
 
     <androidx.appcompat.widget.AppCompatImageView
