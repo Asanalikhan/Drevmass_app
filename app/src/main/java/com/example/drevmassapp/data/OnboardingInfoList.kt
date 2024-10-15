@@ -2,6 +2,7 @@ package com.example.drevmassapp.data
 
 import android.content.Context
 import com.example.drevmassapp.R
+import com.example.drevmassapp.data.model.OnboardingModel
 
 object OnboardingInfoList {
 

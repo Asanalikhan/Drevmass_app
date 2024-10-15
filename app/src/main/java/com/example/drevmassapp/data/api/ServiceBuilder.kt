@@ -1,4 +1,4 @@
-package com.example.drevmassapp.data
+package com.example.drevmassapp.data.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

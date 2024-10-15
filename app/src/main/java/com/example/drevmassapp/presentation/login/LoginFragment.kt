@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -17,6 +18,7 @@ import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.drevmassapp.R
 import com.example.drevmassapp.databinding.FragmentLoginBinding
@@ -25,6 +27,7 @@ class LoginFragment : Fragment() {
 
     private lateinit var _binding: FragmentLoginBinding
     private val binding get() = _binding
+    private lateinit var viewModel: LoginViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -36,6 +39,8 @@ class LoginFragment : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
         binding.apply {
             setupToolbar()
@@ -86,6 +91,14 @@ class LoginFragment : Fragment() {
                 R.drawable.ic_lock_24,
                 R.drawable.background_credentials_unfocus
             )
+            viewModel.login(binding.etEmail.text.toString(), binding.etPassword.text.toString())
+            Log.d("LoginFragment", "validateFields: ${binding.etEmail.text} ${binding.etPassword.text}")
+            viewModel.login.observe(viewLifecycleOwner) { response ->
+                if (response.accessToken.isNotEmpty()) {
+                    findNavController().navigate(R.id.action_loginFragment_to_courseFragment)
+                    Log.d("LoginFragment", "validateFields: ${response.accessToken}")
+                }
+            }
         } else {
             binding.toolbarContainer.visibility = View.GONE
             binding.ivBackground.flNotification.visibility = View.VISIBLE
@@ -261,5 +274,3 @@ class LoginFragment : Fragment() {
         return isAllFieldsFilled
     }
 }
-
-
