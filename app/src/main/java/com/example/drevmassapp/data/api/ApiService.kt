@@ -1,7 +1,7 @@
 package com.example.drevmassapp.data.api
 
-import com.example.drevmassapp.data.model.LoginModel
-import com.example.drevmassapp.data.model.LoginResponse
+import com.example.drevmassapp.domain.model.LoginModel
+import com.example.drevmassapp.domain.model.LoginResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header

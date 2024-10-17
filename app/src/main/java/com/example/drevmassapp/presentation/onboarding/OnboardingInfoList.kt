@@ -1,8 +1,8 @@
-package com.example.drevmassapp.data
+package com.example.drevmassapp.presentation.onboarding
 
 import android.content.Context
 import com.example.drevmassapp.R
-import com.example.drevmassapp.data.model.OnboardingModel
+import com.example.drevmassapp.domain.model.OnboardingModel
 
 object OnboardingInfoList {
 

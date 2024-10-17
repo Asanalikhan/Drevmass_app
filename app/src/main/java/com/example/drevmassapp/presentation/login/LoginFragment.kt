@@ -19,6 +19,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.drevmassapp.R
 import com.example.drevmassapp.databinding.FragmentLoginBinding
@@ -92,7 +93,10 @@ class LoginFragment : Fragment() {
                 R.drawable.background_credentials_unfocus
             )
             viewModel.login(binding.etEmail.text.toString(), binding.etPassword.text.toString())
-            Log.d("LoginFragment", "validateFields: ${binding.etEmail.text} ${binding.etPassword.text}")
+            Log.d(
+                "LoginFragment",
+                "validateFields: ${binding.etEmail.text} ${binding.etPassword.text}"
+            )
             viewModel.login.observe(viewLifecycleOwner) { response ->
                 if (response.accessToken.isNotEmpty()) {
                     findNavController().navigate(R.id.action_loginFragment_to_courseFragment)
@@ -198,7 +202,7 @@ class LoginFragment : Fragment() {
                 setButtonMargin(820)
             } else {
                 backgroundView.setBackgroundResource(R.drawable.background_credentials_unfocus)
-                if(!isPassword) editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+                if (!isPassword) editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
                 hideKeyboard(editText)
             }
         }
@@ -226,8 +230,12 @@ class LoginFragment : Fragment() {
                             } else {
                                 InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
                             }
-                            setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(requireContext(),
-                                    if (isPasswordVisible) R.drawable.ic_show_off_24 else R.drawable.ic_show_24), null)
+                            setCompoundDrawablesWithIntrinsicBounds(
+                                null, null, ContextCompat.getDrawable(
+                                    requireContext(),
+                                    if (isPasswordVisible) R.drawable.ic_show_off_24 else R.drawable.ic_show_24
+                                ), null
+                            )
                             setSelection(text!!.length)
                             return@setOnTouchListener true
                         }

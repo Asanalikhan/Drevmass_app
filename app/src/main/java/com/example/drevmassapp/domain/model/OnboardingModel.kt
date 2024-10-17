@@ -1,4 +1,4 @@
-package com.example.drevmassapp.data.model
+package com.example.drevmassapp.domain.model
 
 data class OnboardingModel(
     val imageId: Int,

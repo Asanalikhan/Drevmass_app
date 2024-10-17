@@ -3,7 +3,7 @@ package com.example.drevmassapp.presentation.onboarding
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.drevmassapp.data.model.OnboardingModel
+import com.example.drevmassapp.domain.model.OnboardingModel
 import com.example.drevmassapp.databinding.ItemViewpagerOnboardingBinding
 
 class OnboardingAdapter(): RecyclerView.Adapter<OnboardingAdapter.OnboardingViewHolder>() {

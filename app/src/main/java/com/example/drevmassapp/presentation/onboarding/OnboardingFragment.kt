@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.drevmassapp.R
-import com.example.drevmassapp.data.OnboardingInfoList
 import com.example.drevmassapp.databinding.FragmentOnboardingBinding
 
 class OnboardingFragment : Fragment() {
