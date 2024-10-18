@@ -1,34 +1,49 @@
 package com.example.drevmassapp.presentation.login
 
-import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.drevmassapp.domain.model.LoginResponse
-import com.example.drevmassapp.domain.repository.LoginRepository
 import com.example.drevmassapp.domain.usecase.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase) : ViewModel() {
+class LoginViewModel @Inject constructor(
+    private val loginUseCase: LoginUseCase
+) : ViewModel() {
 
     private val _login = MutableLiveData<LoginResponse>()
     val login: LiveData<LoginResponse> get() = _login
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> get() = _loading
+
+    private val _error = MutableLiveData<String?>()
+    val error: LiveData<String?> get() = _error
+
     fun login(email: String, password: String) {
-        viewModelScope.launch {
-            try {
+        viewModelScope.launch(Dispatchers.IO) {
+            _loading.postValue(true)
+            try{
                 val response = loginUseCase.login(email, password)
-                _login.value = response
-            } catch (e: Exception) {
+                _login.postValue(response)
+                _error.postValue(null)
+            }catch (e: HttpException) {
+                _error.postValue("Ошибка авторизации: ${e.code()}")
+                Log.e("LoginViewModel", "Error: ${e.message()}, Code: ${e.code()}")
+            }catch (e: Exception){
                 e.printStackTrace()
+                _error.postValue(e.message)
+            } finally {
+                _loading.postValue(false)
             }
         }
     }
-
 }

@@ -18,22 +18,28 @@ import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.drevmassapp.R
 import com.example.drevmassapp.databinding.FragmentLoginBinding
+import com.google.android.material.progressindicator.CircularProgressIndicator
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private lateinit var _binding: FragmentLoginBinding
     private val binding get() = _binding
-    private lateinit var viewModel: LoginViewModel
+    private val viewModel: LoginViewModel by viewModels()
+    private lateinit var progressBar: CircularProgressIndicator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        progressBar = binding.progressBar
         return binding.root
     }
 
@@ -41,23 +47,43 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        setupToolbar()
+        setListeners()
+        setupObservers()
+    }
 
+    private fun setupObservers() {
         binding.apply {
-            setupToolbar()
+            viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+                progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+                progressBar.isIndeterminate = true
+                btnLogin.text = if (isLoading) "" else getString(R.string.to_login)
+            }
+            viewModel.error.observe(viewLifecycleOwner) { error ->
+                if (error.isNullOrEmpty()) setSuccess() else setError()
+            }
+            viewModel.login.observe(viewLifecycleOwner) { response ->
+                if (response.accessToken.isNotEmpty()) {
+                    findNavController().navigate(R.id.action_loginFragment_to_courseFragment)
+                }
+            }
+        }
+    }
+
+    private fun setListeners() {
+        binding.apply {
             setupEditText(etEmail)
             setupPasswordField()
             setupEditTexts()
-
             etPassword.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    hideKeyboard(binding.etPassword)
+                    hideKeyboard()
                 }
                 true
             }
 
             root.setOnClickListener {
-                hideKeyboard(etPassword)
+                hideKeyboard()
             }
 
             tvRegistration.setOnClickListener {
@@ -76,49 +102,43 @@ class LoginFragment : Fragment() {
 
     private fun validateFields() {
         if (!checkFieldsForEmptyValues()) return
-        hideKeyboard(binding.etPassword)
-        if (checkEmail() && checkPassword()) {
-            binding.toolbarContainer.visibility = View.VISIBLE
-            binding.ivBackground.flNotification.visibility = View.GONE
-            setField(
-                binding.ivEmail,
-                binding.vEmail,
-                R.drawable.ic_mail_24,
-                R.drawable.background_credentials_unfocus
-            )
-            setField(
-                binding.ivPassword,
-                binding.vPassword,
-                R.drawable.ic_lock_24,
-                R.drawable.background_credentials_unfocus
-            )
-            viewModel.login(binding.etEmail.text.toString(), binding.etPassword.text.toString())
-            Log.d(
-                "LoginFragment",
-                "validateFields: ${binding.etEmail.text} ${binding.etPassword.text}"
-            )
-            viewModel.login.observe(viewLifecycleOwner) { response ->
-                if (response.accessToken.isNotEmpty()) {
-                    findNavController().navigate(R.id.action_loginFragment_to_courseFragment)
-                    Log.d("LoginFragment", "validateFields: ${response.accessToken}")
-                }
-            }
-        } else {
-            binding.toolbarContainer.visibility = View.GONE
-            binding.ivBackground.flNotification.visibility = View.VISIBLE
-            setField(
-                binding.ivEmail,
-                binding.vEmail,
-                R.drawable.ic_mail_error_24,
-                R.drawable.background_credentials_error
-            )
-            setField(
-                binding.ivPassword,
-                binding.vPassword,
-                R.drawable.ic_lock_error_24,
-                R.drawable.background_credentials_error
-            )
-        }
+        hideKeyboard()
+        if (checkEmail() && checkPassword()) setSuccess() else setError()
+        viewModel.login(binding.etEmail.text.toString(), binding.etPassword.text.toString())
+    }
+
+    private fun setError() {
+        binding.toolbarContainer.visibility = View.GONE
+        binding.ivBackground.flNotification.visibility = View.VISIBLE
+        setField(
+            binding.ivEmail,
+            binding.vEmail,
+            R.drawable.ic_mail_error_24,
+            R.drawable.background_credentials_error
+        )
+        setField(
+            binding.ivPassword,
+            binding.vPassword,
+            R.drawable.ic_lock_error_24,
+            R.drawable.background_credentials_error
+        )
+    }
+
+    private fun setSuccess() {
+        binding.toolbarContainer.visibility = View.VISIBLE
+        binding.ivBackground.flNotification.visibility = View.GONE
+        setField(
+            binding.ivEmail,
+            binding.vEmail,
+            R.drawable.ic_mail_24,
+            R.drawable.background_credentials_unfocus
+        )
+        setField(
+            binding.ivPassword,
+            binding.vPassword,
+            R.drawable.ic_lock_24,
+            R.drawable.background_credentials_unfocus
+        )
     }
 
     private fun checkEmail(): Boolean {
@@ -135,13 +155,12 @@ class LoginFragment : Fragment() {
         backgroundView.setBackgroundResource(drawable)
     }
 
-    private fun hideKeyboard(view: View) {
+    private fun hideKeyboard() {
         binding.etPassword.clearFocus()
         binding.etEmail.clearFocus()
         setButtonMargin(64)
-        val imm =
-            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 
     private fun setupToolbar() {
@@ -203,7 +222,7 @@ class LoginFragment : Fragment() {
             } else {
                 backgroundView.setBackgroundResource(R.drawable.background_credentials_unfocus)
                 if (!isPassword) editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-                hideKeyboard(editText)
+                hideKeyboard()
             }
         }
     }

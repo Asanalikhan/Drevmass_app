@@ -60,8 +60,8 @@ dependencies {
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.work.runtime.ktx)
-    implementation("com.google.dagger:hilt-android:2.51.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    implementation(libs.hilt.android.v2511)
+    kapt(libs.hilt.android.compiler)
 }
 kapt {
     correctErrorTypes = true
