@@ -126,6 +126,7 @@ class ForgotBottomSheetDialogFragment: BottomSheetDialogFragment() {
     private fun setError() {
         binding.toolbarContainer.visibility = View.GONE
         binding.ivBackground.flNotification.visibility = View.VISIBLE
+        binding.ivBackground.tvMessage.text = getString(R.string.forgot_string)
     }
 
     @SuppressLint("ClickableViewAccessibility")
