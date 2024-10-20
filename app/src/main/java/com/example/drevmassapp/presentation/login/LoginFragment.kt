@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -19,13 +18,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.drevmassapp.R
 import com.example.drevmassapp.databinding.FragmentLoginBinding
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -94,8 +91,8 @@ class LoginFragment : Fragment() {
                 validateFields()
             }
             tvForgotPassword.setOnClickListener {
-                val resetBottomSheet = ResetBottomSheetDialogFragment()
-                resetBottomSheet.show(parentFragmentManager, "ResetBottomSheetDialogFragment")
+                val resetBottomSheet = ForgotBottomSheetDialogFragment()
+                resetBottomSheet.show(parentFragmentManager, "ForgotBottomSheetDialogFragment")
             }
         }
     }

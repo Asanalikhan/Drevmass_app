@@ -6,17 +6,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.drevmassapp.domain.model.LoginResponse
-import com.example.drevmassapp.domain.usecase.LoginUseCase
+import com.example.drevmassapp.domain.usecase.AuthUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val authUseCase: AuthUseCase
 ) : ViewModel() {
 
     private val _login = MutableLiveData<LoginResponse>()
@@ -32,7 +31,7 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loading.postValue(true)
             try{
-                val response = loginUseCase.login(email, password)
+                val response = authUseCase.login(email, password)
                 _login.postValue(response)
                 _error.postValue(null)
             }catch (e: HttpException) {

@@ -13,18 +13,24 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.drevmassapp.R
 import com.example.drevmassapp.databinding.ResetBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-class ResetBottomSheetDialogFragment: BottomSheetDialogFragment() {
+@AndroidEntryPoint
+class ForgotBottomSheetDialogFragment: BottomSheetDialogFragment() {
 
     private var _binding: ResetBottomSheetBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: ForgotViewModel by viewModels()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
@@ -74,23 +80,52 @@ class ResetBottomSheetDialogFragment: BottomSheetDialogFragment() {
             }
 
             root.setOnClickListener{
-                hideKeyboard(etEmail)
+                hideKeyboard()
             }
             etEmail.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    hideKeyboard(binding.etEmail)
+                    hideKeyboard()
                 }
                 true
             }
 
             btnResetPassword.setOnClickListener {
                 if(checkFieldsForEmptyValues()) {
-                    val confirmBottomSheet = ConfirmBottomSheetDialog()
-                    confirmBottomSheet.show(parentFragmentManager, "ConfirmBottomSheetDialogFragment")
+                    validateFields()
                 }
             }
         }
 
+    }
+
+    private fun validateFields() {
+        if (!checkFieldsForEmptyValues()) return
+        hideKeyboard()
+        viewModel.forgot(binding.etEmail.text.toString())
+        viewModel.error.observe(viewLifecycleOwner) { error ->
+            if (error.isNullOrEmpty()) setSuccess() else setError()
+        }
+        viewModel.message.observe(viewLifecycleOwner) { response ->
+            if (response.isNotEmpty()) {
+                val confirmBottomSheet = ConfirmBottomSheetDialog.newInstance(binding.etEmail.text.toString())
+                confirmBottomSheet.setConfirmListener(object : ConfirmBottomSheetDialog.ConfirmListener {
+                    override fun onConfirm() {
+                        dismiss()
+                    }
+                })
+                confirmBottomSheet.show(parentFragmentManager, "ConfirmBottomSheetDialogFragment")
+            }
+        }
+    }
+
+    private fun setSuccess() {
+        binding.toolbarContainer.visibility = View.VISIBLE
+        binding.ivBackground.flNotification.visibility = View.GONE
+    }
+
+    private fun setError() {
+        binding.toolbarContainer.visibility = View.GONE
+        binding.ivBackground.flNotification.visibility = View.VISIBLE
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -163,17 +198,16 @@ class ResetBottomSheetDialogFragment: BottomSheetDialogFragment() {
                 backgroundView.setBackgroundResource(R.drawable.background_credentials_unfocus)
                 binding.tvEmail.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_gray_800))
                 editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-                hideKeyboard(editText)
+                hideKeyboard()
             }
         }
     }
 
-    private fun hideKeyboard(view: View) {
+    private fun hideKeyboard() {
         binding.etEmail.clearFocus()
         setButtonMargin(93)
-        val imm =
-            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 
     private fun setupFullHeight(bottomSheet: View) {
