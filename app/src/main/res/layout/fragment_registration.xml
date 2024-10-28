@@ -236,6 +236,16 @@
         app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
         app:layout_constraintStart_toStartOf="@id/guidelineStart" />
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:layout_constraintTop_toTopOf="@id/btn_registration"
+        app:layout_constraintBottom_toBottomOf="@id/btn_registration"
+        app:layout_constraintStart_toStartOf="@id/btn_registration"
+        app:layout_constraintEnd_toEndOf="@id/btn_registration" />
+
     <LinearLayout
         android:id="@+id/ll_login"
         android:layout_width="wrap_content"

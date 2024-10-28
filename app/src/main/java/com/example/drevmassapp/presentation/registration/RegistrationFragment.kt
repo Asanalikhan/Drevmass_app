@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -14,17 +15,22 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.drevmassapp.R
 import com.example.drevmassapp.databinding.FragmentRegistrationBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RegistrationFragment : Fragment() {
 
     private lateinit var _binding: FragmentRegistrationBinding
     private val binding get() = _binding
+    private val viewModel: RegistrationViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -44,6 +50,7 @@ class RegistrationFragment : Fragment() {
             setupEditText(etPhone, vPhone)
             setupPasswordField()
             setupEditTexts()
+            setupObservers()
 
             etPassword.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -62,67 +69,102 @@ class RegistrationFragment : Fragment() {
             btnRegistration.setOnClickListener {
                 validateFields()
             }
+
+        }
+    }
+
+    private fun setupObservers() {
+        binding.apply {
+            viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+                progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+                progressBar.isIndeterminate = true
+                btnRegistration.text = if (isLoading) "" else getString(R.string.registration)
+            }
+            viewModel.registration.observe(viewLifecycleOwner) { response ->
+                response?.message?.let { message ->
+                    if (message.isNotEmpty()) {
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                        Log.d("RegistrationFragment", "Registration: $message")
+                    }
+                } ?: run {
+                    ivBackground.flNotification.visibility = View.VISIBLE
+                }
+            }
+            viewModel.error.observe(viewLifecycleOwner) { error ->
+                if (error.isNullOrEmpty()) setSuccess() else setError(error.toString())
+            }
         }
     }
 
     private fun validateFields() {
         if (!checkFieldsForEmptyValues()) return
         hideKeyboard(binding.etPassword)
-        if (checkName() && checkPhone() && checkEmail() && checkPassword()) {
-            binding.toolbarContainer.visibility = View.VISIBLE
-            binding.ivBackground.flNotification.visibility = View.GONE
-            setField(
-                binding.ivName,
-                binding.vName,
-                R.drawable.ic_profile_24,
-                R.drawable.background_credentials_unfocus
-            )
-            setField(
-                binding.ivPhone,
-                binding.vPhone,
-                R.drawable.ic_phone_24,
-                R.drawable.background_credentials_unfocus
-            )
-            setField(
-                binding.ivEmail,
-                binding.vEmail,
-                R.drawable.ic_mail_24,
-                R.drawable.background_credentials_unfocus
-            )
-            setField(
-                binding.ivPassword,
-                binding.vPassword,
-                R.drawable.ic_lock_24,
-                R.drawable.background_credentials_unfocus
-            )
-        } else {
-            binding.toolbarContainer.visibility = View.GONE
-            binding.ivBackground.flNotification.visibility = View.VISIBLE
-            setField(
-                binding.ivName,
-                binding.vName,
-                R.drawable.ic_profile_error_24,
-                R.drawable.background_credentials_error
-            )
-            setField(
-                binding.ivPhone,
-                binding.vPhone,
-                R.drawable.ic_phone_error_24,
-                R.drawable.background_credentials_error
-            )
-            setField(
-                binding.ivEmail,
-                binding.vEmail,
-                R.drawable.ic_mail_error_24,
-                R.drawable.background_credentials_error
-            )
-            setField(
-                binding.ivPassword,
-                binding.vPassword,
-                R.drawable.ic_lock_error_24,
-                R.drawable.background_credentials_error
-            )
-        }
+        viewModel.registration(
+            binding.etEmail.text.toString(),
+            binding.etName.text.toString(),
+            binding.etPassword.text.toString(),
+            binding.etPhone.text.toString(),
+        )
+        if (checkName() && checkPhone() && checkEmail() && checkPassword()) setSuccess() else setError("Неверно введены данные")
+    }
+
+    private fun setSuccess() {
+        binding.toolbarContainer.visibility = View.VISIBLE
+        binding.ivBackground.flNotification.visibility = View.GONE
+        setField(
+            binding.ivName,
+            binding.vName,
+            R.drawable.ic_profile_24,
+            R.drawable.background_credentials_unfocus
+        )
+        setField(
+            binding.ivPhone,
+            binding.vPhone,
+            R.drawable.ic_phone_24,
+            R.drawable.background_credentials_unfocus
+        )
+        setField(
+            binding.ivEmail,
+            binding.vEmail,
+            R.drawable.ic_mail_24,
+            R.drawable.background_credentials_unfocus
+        )
+        setField(
+            binding.ivPassword,
+            binding.vPassword,
+            R.drawable.ic_lock_24,
+            R.drawable.background_credentials_unfocus
+        )
+    }
+
+    private fun setError(error: String) {
+        binding.toolbarContainer.visibility = View.GONE
+        binding.ivBackground.flNotification.visibility = View.VISIBLE
+        binding.ivBackground.tvMessage.text = error
+        setField(
+            binding.ivName,
+            binding.vName,
+            R.drawable.ic_profile_error_24,
+            R.drawable.background_credentials_error
+        )
+        setField(
+            binding.ivPhone,
+            binding.vPhone,
+            R.drawable.ic_phone_error_24,
+            R.drawable.background_credentials_error
+        )
+        setField(
+            binding.ivEmail,
+            binding.vEmail,
+            R.drawable.ic_mail_error_24,
+            R.drawable.background_credentials_error
+        )
+        setField(
+            binding.ivPassword,
+            binding.vPassword,
+            R.drawable.ic_lock_error_24,
+            R.drawable.background_credentials_error
+        )
     }
 
     private fun checkName(): Boolean {

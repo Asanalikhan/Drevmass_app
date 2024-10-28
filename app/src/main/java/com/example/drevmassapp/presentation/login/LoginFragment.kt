@@ -54,7 +54,7 @@ class LoginFragment : Fragment() {
             viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
                 progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
                 progressBar.isIndeterminate = true
-                btnLogin.text = if (isLoading) "" else getString(R.string.to_login)
+                btnLogin.text = if (isLoading) "" else getString(R.string.login)
             }
             viewModel.error.observe(viewLifecycleOwner) { error ->
                 if (error.isNullOrEmpty()) setSuccess() else setError()
