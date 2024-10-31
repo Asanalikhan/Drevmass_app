@@ -15,13 +15,21 @@ class CatalogRepositoryImpl(private val context: Context): CatalogRepository {
     private val preferencesRepository = PreferencesRepositoryImpl(PreferencesManager(context))
 
     override suspend fun getProducts(int: Int): List<ProductResponse> {
+        Log.d("CatalogRepositoryImpl", "getProducts called with parameter: $int")
         var response: List<ProductResponse> = emptyList()
-        when(int){
-            0 -> response = apiService.getFamousProducts(preferencesRepository.getUserToken())
-            1 -> response = apiService.getPriceDownProducts(preferencesRepository.getUserToken())
-            2 -> response = apiService.getPriceUpProducts(preferencesRepository.getUserToken())
+        try {
+            val token = preferencesRepository.getUserToken()
+            Log.d("CatalogRepositoryImpl", "Token: $token")
+            response = when(int) {
+                0 -> apiService.getFamousProducts("Bearer $token")
+                1 -> apiService.getPriceDownProducts("Bearer $token")
+                2 -> apiService.getPriceUpProducts("Bearer $token")
+                else -> emptyList()
+            }
+            Log.d("CatalogRepositoryImpl", "API Response: $response")
+        } catch (e: Exception) {
+            Log.e("CatalogRepositoryImpl", "Error fetching products", e)
         }
-        Log.d("AuthRepository", "getProducts: $response")
         return response
     }
 
