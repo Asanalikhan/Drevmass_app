@@ -2,6 +2,8 @@ package com.example.drevmassapp.domain.usecase
 
 import com.example.drevmassapp.domain.model.ForgotModel
 import com.example.drevmassapp.domain.model.LoginResponse
+import com.example.drevmassapp.domain.model.ProductByIdResponse
+import com.example.drevmassapp.domain.model.ProductResponse
 import com.example.drevmassapp.domain.model.SignupResponse
 import com.example.drevmassapp.domain.repository.AuthRepository
 
@@ -16,5 +18,13 @@ class AuthUseCase(private val authRepository: AuthRepository) {
 
     suspend fun signup(email: String, name: String, password:String, phoneNumber: String): SignupResponse {
         return authRepository.signup(email, name, password, phoneNumber)
+    }
+
+    suspend fun getProducts(int: Int): List<ProductResponse> {
+        return authRepository.getProducts(int)
+    }
+
+    suspend fun getProductsById(id: Int): List<ProductByIdResponse> {
+        return authRepository.getProductsById(id)
     }
 }

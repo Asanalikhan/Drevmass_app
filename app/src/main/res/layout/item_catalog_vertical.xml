@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivImage"
+        android:layout_width="match_parent"
+        android:layout_height="202dp"
+        android:src="@drawable/goods"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearanceOverlay="@style/RoundedCornersImage" />
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/sf_text_bold"
+        android:text="1 000 ₽"
+        android:textColor="@color/color_dark_1000"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/ivImage"
+        app:layout_constraintStart_toStartOf="parent" />
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="279dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/sf_text_regular"
+        android:text="Описание товара"
+        android:textColor="@color/color_dark_1000"
+        android:textSize="17sp"
+        android:ellipsize="end"
+        app:layout_constraintTop_toBottomOf="@id/tvPrice"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/ibAddToCart"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_btn_50_not_added"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_cart_not_added"
+        app:layout_constraintTop_toBottomOf="@id/ivImage"
+        app:layout_constraintEnd_toEndOf="@id/ivImage" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

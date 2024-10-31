@@ -8,4 +8,15 @@
         <item name="android:layout_height">match_parent</item>
         <item name="behavior_peekHeight">600dp</item>
     </style>
+
+    <style name="RoundedCornersImageHorizontal">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="RoundedCornersImage">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">24dp</item>
+    </style>
 </resources>
