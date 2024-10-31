@@ -62,6 +62,8 @@ dependencies {
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.hilt.android.v2511)
     kapt(libs.hilt.android.compiler)
+    implementation(libs.glide)
+    kapt(libs.compiler)
 }
 kapt {
     correctErrorTypes = true

@@ -20,6 +20,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.drevmassapp.R
+import com.example.drevmassapp.data.local.PreferencesManager
+import com.example.drevmassapp.data.repository.PreferencesRepositoryImpl
 import com.example.drevmassapp.databinding.FragmentLoginBinding
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import dagger.hilt.android.AndroidEntryPoint
@@ -61,6 +63,8 @@ class LoginFragment : Fragment() {
             }
             viewModel.login.observe(viewLifecycleOwner) { response ->
                 if (response.accessToken.isNotEmpty()) {
+                    val preferencesRepository = PreferencesRepositoryImpl(PreferencesManager(requireContext()))
+                    preferencesRepository.saveUserToken(response.accessToken)
                     findNavController().navigate(R.id.action_loginFragment_to_courseFragment)
                 }
             }

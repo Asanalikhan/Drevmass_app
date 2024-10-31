@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.drevmassapp.domain.model.ProductByIdResponse
 import com.example.drevmassapp.domain.model.ProductResponse
 import com.example.drevmassapp.domain.usecase.AuthUseCase
+import com.example.drevmassapp.domain.usecase.CatalogUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CatalogViewModel @Inject constructor(
-    private val authUseCase: AuthUseCase
+    private val catalogUseCase: CatalogUseCase
 ): ViewModel() {
 
     private val _products = MutableLiveData<List<ProductResponse>>()
@@ -32,7 +33,7 @@ class CatalogViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _loading.postValue(true)
             try {
-                val response = authUseCase.getProducts(int)
+                val response = catalogUseCase.getProducts(int)
                 _products.postValue(response)
                 _error.postValue(null)
                 Log.d("CatalogViewModel", "Products: $response")

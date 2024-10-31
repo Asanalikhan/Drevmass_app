@@ -1,7 +1,9 @@
 package com.example.drevmassapp.data.repository
 
+import android.content.Context
 import android.util.Log
 import com.example.drevmassapp.data.api.ApiService
+import com.example.drevmassapp.data.local.PreferencesManager
 import com.example.drevmassapp.data.remote.ServiceBuilder
 import com.example.drevmassapp.domain.model.ForgotModel
 import com.example.drevmassapp.domain.model.LoginModel
@@ -13,6 +15,7 @@ import com.example.drevmassapp.domain.model.SignupResponse
 import com.example.drevmassapp.domain.repository.AuthRepository
 
 class AuthRepositoryImpl: AuthRepository {
+
     private val apiService = ServiceBuilder.buildService(ApiService::class.java)
 
     override suspend fun login(email: String, password: String): LoginResponse {
@@ -36,22 +39,5 @@ class AuthRepositoryImpl: AuthRepository {
         val response = apiService.signup(SignupModel("string", email, name, password, phone_number))
         Log.d("AuthRepository", "signup: $response")
         return response
-    }
-
-    override suspend fun getProducts(int: Int): List<ProductResponse> {
-        var response: List<ProductResponse> = emptyList()
-        when(int){
-            1 -> response = apiService.getFamousProducts("string")
-            2 -> response = apiService.getPriceDownProducts("string")
-            3 -> response = apiService.getPriceUpProducts("string")
-        }
-        Log.d("AuthRepository", "getProducts: $response")
-        return response
-    }
-
-    override suspend fun getProductsById(id: Int): List<ProductByIdResponse> {
-        val response = apiService.getProductById(id, "string")
-        Log.d("AuthRepository", "getProductsById: $response")
-        return listOf(response)
     }
 }

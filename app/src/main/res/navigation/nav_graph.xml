@@ -19,7 +19,11 @@
         android:id="@+id/courseFragment"
         android:name="com.example.drevmassapp.presentation.course.CourseFragment"
         android:label="fragment_course"
-        tools:layout="@layout/fragment_course" />
+        tools:layout="@layout/fragment_course" >
+        <action
+            android:id="@+id/action_courseFragment_to_catalogFragment"
+            app:destination="@id/catalogFragment" />
+    </fragment>
     <fragment
         android:id="@+id/basketFragment"
         android:name="com.example.drevmassapp.presentation.basket.BasketFragment"
