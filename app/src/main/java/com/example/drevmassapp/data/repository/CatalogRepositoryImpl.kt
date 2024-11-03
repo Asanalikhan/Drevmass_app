@@ -21,9 +21,9 @@ class CatalogRepositoryImpl(private val context: Context): CatalogRepository {
             val token = preferencesRepository.getUserToken()
             Log.d("CatalogRepositoryImpl", "Token: $token")
             response = when(int) {
-                0 -> apiService.getFamousProducts("Bearer $token")
-                1 -> apiService.getPriceDownProducts("Bearer $token")
-                2 -> apiService.getPriceUpProducts("Bearer $token")
+                1 -> apiService.getFamousProducts("Bearer $token")
+                2 -> apiService.getPriceDownProducts("Bearer $token")
+                3 -> apiService.getPriceUpProducts("Bearer $token")
                 else -> emptyList()
             }
             Log.d("CatalogRepositoryImpl", "API Response: $response")

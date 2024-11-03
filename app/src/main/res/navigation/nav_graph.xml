@@ -42,6 +42,9 @@
             app:destination="@id/registrationFragment"
             app:popUpTo="@id/registrationFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_onboardingFragment_to_courseFragment"
+            app:destination="@id/courseFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"

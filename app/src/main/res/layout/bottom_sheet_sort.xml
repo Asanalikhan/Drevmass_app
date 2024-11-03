@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_view_24"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/tvSortAscending"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_display_semibold"
+        android:text="Сортировка"
+        android:textColor="@color/color_dark_1000"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/byPopularity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:drawableEnd="@drawable/ic_sort_clicked"
+        android:fontFamily="@font/sf_text_regular"
+        android:paddingVertical="13dp"
+        android:text="@string/by_popularity"
+        android:textColor="@color/color_dark_1000"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/tvAscending"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_sort_unclicked"
+        android:fontFamily="@font/sf_text_regular"
+        android:paddingVertical="13dp"
+        android:text="@string/by_ascending"
+        android:textColor="@color/color_dark_1000"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/tvDescending"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_sort_unclicked"
+        android:fontFamily="@font/sf_text_regular"
+        android:paddingVertical="13dp"
+        android:text="@string/by_descending"
+        android:textColor="@color/color_dark_1000"
+        android:textSize="17sp" />
+
+</LinearLayout>

@@ -19,4 +19,7 @@
     <string name="reset_password">Сбросить пароль</string>
     <string name="clear">Понятно</string>
     <string name="forgot_string">Такого мейла не сушествует</string>
+    <string name="by_popularity">По популярности</string>
+    <string name="by_ascending">По возрастанию цены</string>
+    <string name="by_descending">По убыванию цены</string>
 </resources>

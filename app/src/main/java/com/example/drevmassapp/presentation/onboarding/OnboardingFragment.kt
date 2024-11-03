@@ -25,6 +25,8 @@ class OnboardingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        checkToken()
+
         val adapter = OnboardingAdapter()
         adapter.submitList(OnboardingInfoList.getOnboardingModelList(requireContext()))
         binding.viewPager.adapter = adapter
@@ -45,6 +47,14 @@ class OnboardingFragment : Fragment() {
         }
 
     }
+
+    private fun checkToken() {
+        val token = requireActivity().getSharedPreferences("sharedPrefs", 0).getString("token", null)
+        if (token.isNullOrEmpty()) {
+            findNavController().navigate(R.id.action_onboardingFragment_to_courseFragment)
+        }
+    }
+
     private fun switch(position : Int) {
         when (position) {
             0 -> {

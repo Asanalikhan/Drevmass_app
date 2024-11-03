@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.drevmassapp.data.remote.ServiceBuilder
 import com.example.drevmassapp.databinding.ItemCatalogGridBinding
 import com.example.drevmassapp.databinding.ItemCatalogHorizontalBinding
 import com.example.drevmassapp.databinding.ItemCatalogVerticalBinding
@@ -53,7 +54,7 @@ class CatalogAdapter(private val products: List<ProductResponse>, private val la
     inner class GridViewHolder(private val binding: ItemCatalogGridBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(product: ProductResponse) {
             Glide.with(binding.ivImage.context)
-                .load(product.imageSrc)
+                .load(ServiceBuilder.getUrl() + product.imageSrc)
                 .into(binding.ivImage)
             binding.tvPrice.text = product.price.toString()
             binding.tvDescription.text = product.title
@@ -63,7 +64,7 @@ class CatalogAdapter(private val products: List<ProductResponse>, private val la
     inner class HorizontalViewHolder(private val binding: ItemCatalogHorizontalBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(product: ProductResponse) {
             Glide.with(binding.ivImage.context)
-                .load(product.imageSrc)
+                .load(ServiceBuilder.getUrl() + product.imageSrc)
                 .into(binding.ivImage)
             binding.tvPrice.text = product.price.toString()
             binding.tvDescription.text = product.title
@@ -73,7 +74,7 @@ class CatalogAdapter(private val products: List<ProductResponse>, private val la
     inner class VerticalViewHolder(private val binding: ItemCatalogVerticalBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(product: ProductResponse) {
             Glide.with(binding.ivImage.context)
-                .load(product.imageSrc)
+                .load(ServiceBuilder.getUrl() + product.imageSrc)
                 .into(binding.ivImage)
             binding.tvPrice.text = product.price.toString()
             binding.tvDescription.text = product.title
