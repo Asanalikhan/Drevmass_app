@@ -1,4 +1,4 @@
-package com.example.drevmassapp.presentation.catalog
+package com.example.drevmassapp.presentation.product
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.drevmassapp.domain.model.ProductByIdResponse
-import com.example.drevmassapp.domain.usecase.AuthUseCase
 import com.example.drevmassapp.domain.usecase.CatalogUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -34,11 +33,11 @@ class ProductViewModel @Inject constructor(
                 val response = catalogUseCase.getProductsById(id)
                 _productById.postValue(response)
                 _error.postValue(null)
-                Log.d("CatalogViewModel", "ProductById: $response")
+                Log.d("ProductViewModel", "ProductById: $response")
             } catch (e: Exception) {
                 e.printStackTrace()
                 _error.postValue(e.message)
-                Log.d("CatalogViewModel", "Error: ${e.message}")
+                Log.d("ProductViewModel", "Error: ${e.message}")
             } finally {
                 _loading.postValue(false)
             }

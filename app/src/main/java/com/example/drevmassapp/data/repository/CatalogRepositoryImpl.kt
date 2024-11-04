@@ -34,7 +34,7 @@ class CatalogRepositoryImpl(private val context: Context): CatalogRepository {
     }
 
     override suspend fun getProductsById(id: Int): List<ProductByIdResponse> {
-        val response = apiService.getProductById(id, preferencesRepository.getUserToken())
+        val response = apiService.getProductById(id, "Bearer ${preferencesRepository.getUserToken()}")
         Log.d("AuthRepository", "getProductsById: $response")
         return listOf(response)
     }

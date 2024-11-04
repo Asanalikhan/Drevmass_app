@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CatalogViewModel @Inject constructor(
     private val catalogUseCase: CatalogUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _products = MutableLiveData<List<ProductResponse>>()
     val products: LiveData<List<ProductResponse>> get() = _products

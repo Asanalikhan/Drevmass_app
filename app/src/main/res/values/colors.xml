@@ -47,5 +47,6 @@
 
     <color name="btn_bg_fill_disabled">#D3C8B3</color>
     <color name="btn_bg_not_added_to_cart">#B5A380</color>
+    <color name="color_corner">#F3F1F0</color>
 
 </resources>
