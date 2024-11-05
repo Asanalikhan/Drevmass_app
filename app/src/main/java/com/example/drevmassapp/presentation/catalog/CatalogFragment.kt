@@ -1,22 +1,20 @@
 package com.example.drevmassapp.presentation.catalog
 
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.drevmassapp.R
-import com.example.drevmassapp.data.local.PreferencesManager
-import com.example.drevmassapp.data.repository.PreferencesRepositoryImpl
 import com.example.drevmassapp.databinding.FragmentCatalogBinding
-import com.example.drevmassapp.domain.model.ProductResponse
+import com.example.drevmassapp.domain.repository.OnItemClickListener
+import com.example.drevmassapp.utils.GridSpacingItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,11 +41,7 @@ class CatalogFragment : Fragment(), SortBottomSheetDialog.SortListener {
         setupRecyclerView()
         setupScrollListener()
         binding.ibFilter.setOnClickListener {
-            toggleLayout()
-        }
-
-        binding.root.setOnClickListener {
-            findNavController().navigate(R.id.action_catalogFragment_to_productFragment)
+            toggleLayout(false)
         }
 
         binding.llSort.setOnClickListener {
@@ -56,35 +50,40 @@ class CatalogFragment : Fragment(), SortBottomSheetDialog.SortListener {
             sortBottomSheet.show(parentFragmentManager, sortBottomSheet.tag)
         }
 
-        viewModel.getProducts(1)
+        onSort(currentSortType)
+        toggleLayout(true)
+    }
+
+    private fun callViewModel() {
         viewModel.products.observe(viewLifecycleOwner) { products ->
-            catalogAdapter = CatalogAdapter(
-                products,
-                when (typeOfLayout) {
-                    0 -> CatalogAdapter.GRID_LAYOUT
-                    1 -> CatalogAdapter.HORIZONTAL_LAYOUT
-                    2 -> CatalogAdapter.VERTICAL_LAYOUT
-                    else -> CatalogAdapter.GRID_LAYOUT
-                }
-            )
+            catalogAdapter.setProducts(products)
             binding.rvCatalog.adapter = catalogAdapter
         }
-
     }
 
     private fun setupRecyclerView() {
         binding.rvCatalog.layoutManager = GridLayoutManager(context, 2)
-        catalogAdapter = CatalogAdapter(emptyList(), CatalogAdapter.GRID_LAYOUT)
+        catalogAdapter = CatalogAdapter(CatalogAdapter.GRID_LAYOUT)
+        val spacingInPixels = resources.getDimensionPixelSize(R.dimen.grid_spacing)
+        val itemDecoration = GridSpacingItemDecoration(2, spacingInPixels, false)
         binding.rvCatalog.adapter = catalogAdapter
+        binding.rvCatalog.addItemDecoration(itemDecoration)
+        catalogAdapter.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(id: Int?) {
+                val action = CatalogFragmentDirections.actionCatalogFragmentToProductFragment(id!!)
+                findNavController().navigate(action)
+            }
+        })
     }
 
-    private fun toggleLayout() {
+    private fun toggleLayout(decrease: Boolean) {
+        if (decrease) typeOfLayout--
         when (typeOfLayout) {
             0 -> {
                 typeOfLayout = 1
                 binding.rvCatalog.layoutManager = LinearLayoutManager(context)
                 catalogAdapter =
-                    CatalogAdapter(catalogAdapter.getProducts(), CatalogAdapter.VERTICAL_LAYOUT)
+                    CatalogAdapter(CatalogAdapter.VERTICAL_LAYOUT)
                 binding.ibFilter.setImageResource(R.drawable.ic_vertical_list_24)
             }
 
@@ -92,7 +91,7 @@ class CatalogFragment : Fragment(), SortBottomSheetDialog.SortListener {
                 typeOfLayout = 2
                 binding.rvCatalog.layoutManager = LinearLayoutManager(context)
                 catalogAdapter =
-                    CatalogAdapter(catalogAdapter.getProducts(), CatalogAdapter.HORIZONTAL_LAYOUT)
+                    CatalogAdapter(CatalogAdapter.HORIZONTAL_LAYOUT)
                 binding.ibFilter.setImageResource(R.drawable.ic_gorizontal_list_24)
             }
 
@@ -100,10 +99,11 @@ class CatalogFragment : Fragment(), SortBottomSheetDialog.SortListener {
                 typeOfLayout = 0
                 binding.rvCatalog.layoutManager = GridLayoutManager(context, 2)
                 catalogAdapter =
-                    CatalogAdapter(catalogAdapter.getProducts(), CatalogAdapter.GRID_LAYOUT)
+                    CatalogAdapter(CatalogAdapter.GRID_LAYOUT)
                 binding.ibFilter.setImageResource(R.drawable.ic_grid_24)
             }
         }
+        callViewModel()
         binding.rvCatalog.adapter = catalogAdapter
     }
 
@@ -114,7 +114,7 @@ class CatalogFragment : Fragment(), SortBottomSheetDialog.SortListener {
                 92f,
                 resources.displayMetrics
             ).toInt()
-            binding.tvTitle2.visibility = if (scrollY >= threshold) View.VISIBLE else View.GONE
+            binding.flTitle.visibility = if (scrollY >= threshold) View.VISIBLE else View.GONE
         })
     }
 

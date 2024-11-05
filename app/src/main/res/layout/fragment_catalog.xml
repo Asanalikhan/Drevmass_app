@@ -6,28 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".presentation.catalog.CatalogFragment">
 
-    <TextView
-        android:id="@+id/tvTitle2"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@color/color_white_1000"
-        android:fontFamily="@font/sf_text_bold"
-        android:gravity="center|bottom"
-        android:paddingBottom="10dp"
-        android:text="Каталог"
-        android:textColor="@color/color_dark_1000"
-        android:textSize="17sp"
+    <FrameLayout
+        android:id="@+id/flTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvTitle2"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/color_white_1000"
+            android:fontFamily="@font/sf_text_bold"
+            android:gravity="center|bottom"
+            android:paddingBottom="10dp"
+            android:text="Каталог"
+            android:textColor="@color/color_dark_1000"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </FrameLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nsCatalog"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle2">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

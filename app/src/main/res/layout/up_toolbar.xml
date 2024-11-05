@@ -17,12 +17,13 @@
         app:layout_constraintStart_toStartOf="parent"/>
     <TextView
         android:id="@+id/tv_toolbar_title"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="Text"
-        android:textSize="18sp"
-        android:textColor="@color/color_dark_alpha_300"
+        android:textSize="17sp"
+        android:fontFamily="@font/sf_text_semibold"
+        android:textColor="@color/color_dark_1000"
+        android:maxWidth="800dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
