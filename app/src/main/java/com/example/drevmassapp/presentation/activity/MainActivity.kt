@@ -7,11 +7,16 @@ import android.view.WindowManager
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.example.drevmassapp.R
 import com.example.drevmassapp.databinding.ActivityMainBinding
+import com.example.drevmassapp.domain.repository.NavigationHostProvider
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationHostProvider {
 
     private lateinit var binding: ActivityMainBinding
     private val splashScreenDuration = 1000L
@@ -26,14 +31,27 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val isDarkMode = sharedPreferences.getBoolean("dark_mode", false)
+        binding.bottomMenu.itemIconTintList = null
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navController = navHostFragment.navController
+        binding.bottomMenu.setupWithNavController(navController)
 
-        if (isDarkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+//        val isDarkMode = sharedPreferences.getBoolean("dark_mode", false)
+//
+//        if (isDarkMode) {
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//        } else {
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//        }
+
+    }
+
+    override fun setNavigationVisibility(visibility: Boolean) {
+        if(visibility){
+            binding.bottomMenu.visibility = View.VISIBLE
+        }else {
+            binding.bottomMenu.visibility = View.GONE
         }
-
     }
 }

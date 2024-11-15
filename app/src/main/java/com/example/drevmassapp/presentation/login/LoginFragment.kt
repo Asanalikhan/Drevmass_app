@@ -23,6 +23,7 @@ import com.example.drevmassapp.R
 import com.example.drevmassapp.data.local.PreferencesManager
 import com.example.drevmassapp.data.repository.PreferencesRepositoryImpl
 import com.example.drevmassapp.databinding.FragmentLoginBinding
+import com.example.drevmassapp.utils.provideNavigationHos
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -45,6 +46,10 @@ class LoginFragment : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        provideNavigationHos()?.apply {
+            setNavigationVisibility(false)
+        }
 
         setupToolbar()
         setListeners()

@@ -23,6 +23,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.drevmassapp.R
 import com.example.drevmassapp.databinding.FragmentRegistrationBinding
+import com.example.drevmassapp.utils.provideNavigationHos
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -42,6 +43,10 @@ class RegistrationFragment : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        provideNavigationHos()?.apply {
+            setNavigationVisibility(false)
+        }
 
         binding.apply {
             setupToolbar()

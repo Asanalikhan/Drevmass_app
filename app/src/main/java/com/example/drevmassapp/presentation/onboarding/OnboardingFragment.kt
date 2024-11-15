@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.drevmassapp.R
 import com.example.drevmassapp.databinding.FragmentOnboardingBinding
+import com.example.drevmassapp.utils.provideNavigationHos
 
 class OnboardingFragment : Fragment() {
 
@@ -26,6 +27,10 @@ class OnboardingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         checkToken()
+
+        provideNavigationHos()?.apply {
+            setNavigationVisibility(false)
+        }
 
         val adapter = OnboardingAdapter()
         adapter.submitList(OnboardingInfoList.getOnboardingModelList(requireContext()))

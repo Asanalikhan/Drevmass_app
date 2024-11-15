@@ -15,6 +15,7 @@ import com.example.drevmassapp.R
 import com.example.drevmassapp.databinding.FragmentCatalogBinding
 import com.example.drevmassapp.domain.repository.OnItemClickListener
 import com.example.drevmassapp.utils.GridSpacingItemDecoration
+import com.example.drevmassapp.utils.provideNavigationHos
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,6 +38,10 @@ class CatalogFragment : Fragment(), SortBottomSheetDialog.SortListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        provideNavigationHos()?.apply {
+            setNavigationVisibility(true)
+        }
 
         setupRecyclerView()
         setupScrollListener()

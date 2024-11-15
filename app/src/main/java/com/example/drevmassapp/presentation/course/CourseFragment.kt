@@ -9,6 +9,7 @@ import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
 import com.example.drevmassapp.R
 import com.example.drevmassapp.databinding.FragmentCourseBinding
+import com.example.drevmassapp.utils.provideNavigationHos
 
 
 class CourseFragment : Fragment() {
@@ -26,7 +27,9 @@ class CourseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        findNavController().navigate(R.id.action_courseFragment_to_catalogFragment)
+        provideNavigationHos()?.apply {
+            setNavigationVisibility(true)
+        }
     }
 
 }

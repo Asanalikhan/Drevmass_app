@@ -1,5 +1,6 @@
 package com.example.drevmassapp.data.api
 
+import com.example.drevmassapp.domain.model.BasketGetResponse
 import com.example.drevmassapp.domain.model.ForgotModel
 import com.example.drevmassapp.domain.model.LoginModel
 import com.example.drevmassapp.domain.model.LoginResponse
@@ -52,5 +53,11 @@ interface ApiService {
         @Path("id") id: Int,
         @Header("Authorization") token: String,
     ): ProductByIdResponse
+
+    @GET("api/basket/{is_using}")
+    suspend fun getBasket(
+        @Path("is_using") is_using: String,
+        @Header("Authorization") token: String,
+    ): BasketGetResponse
 
 }

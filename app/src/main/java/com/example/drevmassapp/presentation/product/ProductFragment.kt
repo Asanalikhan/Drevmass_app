@@ -16,6 +16,7 @@ import com.example.drevmassapp.databinding.FragmentProductBinding
 import com.example.drevmassapp.domain.repository.OnItemClickListener
 import com.example.drevmassapp.presentation.catalog.CatalogAdapter
 import com.example.drevmassapp.utils.GridSpacingItemDecoration
+import com.example.drevmassapp.utils.provideNavigationHos
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,6 +39,10 @@ class ProductFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        provideNavigationHos()?.apply {
+            setNavigationVisibility(false)
+        }
 
         binding.toolbar.icBtnBack.setOnClickListener {
             activity?.onBackPressed()
