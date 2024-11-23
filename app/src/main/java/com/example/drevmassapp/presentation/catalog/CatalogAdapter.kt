@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.drevmassapp.R
 import com.example.drevmassapp.data.remote.ServiceBuilder
 import com.example.drevmassapp.databinding.ItemCatalogGridBinding
 import com.example.drevmassapp.databinding.ItemCatalogHorizontalBinding
@@ -50,6 +51,31 @@ class CatalogAdapter(private val layoutType: Int) :
         }
     }
 
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
+        if (payloads.isNotEmpty()) {
+            val isAddedToCart = payloads[0] as Boolean
+            when (holder) {
+                is GridViewHolder -> {
+                    holder.binding.ibAddToCart.setImageResource(
+                        if (isAddedToCart) R.drawable.ic_cart_added else R.drawable.ic_cart_not_added
+                    )
+                }
+                is HorizontalViewHolder -> {
+                    holder.binding.ibAddToCart.setImageResource(
+                        if (isAddedToCart) R.drawable.ic_cart_added else R.drawable.ic_cart_not_added
+                    )
+                }
+                is VerticalViewHolder -> {
+                    holder.binding.ibAddToCart.setImageResource(
+                        if (isAddedToCart) R.drawable.ic_cart_added else R.drawable.ic_cart_not_added
+                    )
+                }
+            }
+        } else {
+            super.onBindViewHolder(holder, position, payloads)
+        }
+    }
+
     override fun getItemCount(): Int = products.size
 
     fun getProducts(): List<ProductResponse> {
@@ -62,13 +88,22 @@ class CatalogAdapter(private val layoutType: Int) :
         notifyDataSetChanged()
     }
 
-    inner class GridViewHolder(private val binding: ItemCatalogGridBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class GridViewHolder(val binding: ItemCatalogGridBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(product: ProductResponse) {
             Glide.with(binding.ivImage.context)
                 .load(ServiceBuilder.getUrl() + product.imageSrc)
                 .into(binding.ivImage)
             binding.tvPrice.text = "${product.price.formatWithSpaces()} ₽"
             binding.tvDescription.text = product.title
+
+            binding.ibAddToCart.setImageResource(
+                if (product.basketCount != 0) R.drawable.ic_cart_added else R.drawable.ic_cart_not_added
+            )
+
+            binding.ibAddToCart.setOnClickListener {
+                notifyItemChanged(adapterPosition, product.basketCount == 0)
+            }
+
             binding.root.setOnClickListener {
                 itemClickListener.onItemClick(product.id)
                 Log.d("CatalogAdapter", "onItemClick: ${product.id}")
@@ -76,13 +111,22 @@ class CatalogAdapter(private val layoutType: Int) :
         }
     }
 
-    inner class HorizontalViewHolder(private val binding: ItemCatalogHorizontalBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class HorizontalViewHolder(val binding: ItemCatalogHorizontalBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(product: ProductResponse) {
             Glide.with(binding.ivImage.context)
                 .load(ServiceBuilder.getUrl() + product.imageSrc)
                 .into(binding.ivImage)
             binding.tvPrice.text = "${product.price.formatWithSpaces()} ₽"
             binding.tvDescription.text = product.title
+
+            binding.ibAddToCart.setImageResource(
+                if (product.basketCount != 0) R.drawable.ic_cart_added else R.drawable.ic_cart_not_added
+            )
+
+            binding.ibAddToCart.setOnClickListener {
+                notifyItemChanged(adapterPosition, product.basketCount==0)
+            }
+
             binding.root.setOnClickListener {
                 itemClickListener.onItemClick(product.id)
                 Log.d("CatalogAdapter", "onItemClick: ${product.id}")
@@ -90,13 +134,22 @@ class CatalogAdapter(private val layoutType: Int) :
         }
     }
 
-    inner class VerticalViewHolder(private val binding: ItemCatalogVerticalBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class VerticalViewHolder(val binding: ItemCatalogVerticalBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(product: ProductResponse) {
             Glide.with(binding.ivImage.context)
                 .load(ServiceBuilder.getUrl() + product.imageSrc)
                 .into(binding.ivImage)
             binding.tvPrice.text = "${product.price.formatWithSpaces()} ₽"
             binding.tvDescription.text = product.title
+
+            binding.ibAddToCart.setImageResource(
+                if (product.basketCount != 0) R.drawable.ic_cart_added else R.drawable.ic_cart_not_added
+            )
+
+            binding.ibAddToCart.setOnClickListener {
+                notifyItemChanged(adapterPosition, product.basketCount==0)
+            }
+
             binding.root.setOnClickListener {
                 itemClickListener.onItemClick(product.id)
                 Log.d("CatalogAdapter", "onItemClick: ${product.id}")

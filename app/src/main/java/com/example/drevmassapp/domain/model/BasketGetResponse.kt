@@ -15,7 +15,7 @@ data class BasketGetResponse(
     @SerializedName("discount")
     val discount: Int, // 0
     @SerializedName("products")
-    val products: List<Product>,
+    val products: List<ProductResponse>,
     @SerializedName("total_price")
     val totalPrice: Int, // 0
     @SerializedName("used_bonus")
@@ -32,28 +32,5 @@ data class BasketGetResponse(
         val productImg: String, // string
         @SerializedName("product_title")
         val productTitle: String // string
-    )
-
-    data class Product(
-        @SerializedName("basket_count")
-        val basketCount: Int, // 0
-        @SerializedName("description")
-        val description: String, // string
-        @SerializedName("height")
-        val height: String, // string
-        @SerializedName("id")
-        val id: Int, // 0
-        @SerializedName("image_src")
-        val imageSrc: String, // string
-        @SerializedName("price")
-        val price: Int, // 0
-        @SerializedName("size")
-        val size: String, // string
-        @SerializedName("title")
-        val title: String, // string
-        @SerializedName("video_src")
-        val videoSrc: String, // string
-        @SerializedName("viewed")
-        val viewed: Int // 0
     )
 }

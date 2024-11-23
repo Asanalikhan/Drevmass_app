@@ -65,6 +65,12 @@ dependencies {
     kapt(libs.hilt.android.compiler)
     implementation(libs.glide)
     kapt(libs.compiler)
+
+    // switch button
+    implementation(libs.library)
+
+    //recycler view
+    implementation(libs.androidx.recyclerview)
 }
 kapt {
     correctErrorTypes = true

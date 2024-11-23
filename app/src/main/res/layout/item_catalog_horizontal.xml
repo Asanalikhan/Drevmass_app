@@ -43,7 +43,7 @@
         android:id="@+id/ibAddToCart"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:background="@drawable/bg_btn_50_not_added"
+        android:backgroundTint="@android:color/transparent"
         android:src="@drawable/ic_cart_not_added"
         app:layout_constraintTop_toTopOf="@id/tvPrice"
         app:layout_constraintBottom_toBottomOf="@id/tvPrice"

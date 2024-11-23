@@ -43,7 +43,7 @@
         android:id="@+id/ibAddToCart"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:background="@drawable/bg_btn_50_not_added"
+        android:background="@android:color/transparent"
         android:layout_marginTop="12dp"
         android:src="@drawable/ic_cart_not_added"
         app:layout_constraintTop_toBottomOf="@id/ivImage"

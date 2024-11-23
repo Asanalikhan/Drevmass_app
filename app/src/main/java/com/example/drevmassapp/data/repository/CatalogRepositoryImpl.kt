@@ -5,6 +5,9 @@ import android.content.Context
 import com.example.drevmassapp.data.api.ApiService
 import com.example.drevmassapp.data.local.PreferencesManager
 import com.example.drevmassapp.data.remote.ServiceBuilder
+import com.example.drevmassapp.domain.model.BasketGetResponse
+import com.example.drevmassapp.domain.model.BasketRequest
+import com.example.drevmassapp.domain.model.ForgotModel
 import com.example.drevmassapp.domain.model.ProductByIdResponse
 import com.example.drevmassapp.domain.model.ProductResponse
 import com.example.drevmassapp.domain.repository.CatalogRepository
@@ -19,7 +22,6 @@ class CatalogRepositoryImpl(private val context: Context): CatalogRepository {
         var response: List<ProductResponse> = emptyList()
         try {
             val token = preferencesRepository.getUserToken()
-            Log.d("CatalogRepositoryImpl", "Token: $token")
             response = when(int) {
                 1 -> apiService.getFamousProducts("Bearer $token")
                 2 -> apiService.getPriceDownProducts("Bearer $token")
@@ -35,7 +37,31 @@ class CatalogRepositoryImpl(private val context: Context): CatalogRepository {
 
     override suspend fun getProductsById(id: Int): List<ProductByIdResponse> {
         val response = apiService.getProductById(id, "Bearer ${preferencesRepository.getUserToken()}")
-        Log.d("AuthRepository", "getProductsById: $response")
+        Log.d("CatalogRepository", "getProductsById: $response")
         return listOf(response)
+    }
+
+    override suspend fun getBasket(is_using: String): BasketGetResponse {
+        val response = apiService.getBasket(is_using, "Bearer ${preferencesRepository.getUserToken()}")
+        Log.d("CatalogRepository", "getBasket: $response")
+        return response
+    }
+
+    override suspend fun addBasket(basket: BasketRequest): ForgotModel {
+        val response = apiService.addBasket("Bearer ${preferencesRepository.getUserToken()}", basket)
+        Log.d("CatalogRepository", "addBasket: $response")
+        return response
+    }
+
+    override suspend fun decreaseBasket(basket: BasketRequest): ForgotModel {
+        val response = apiService.decreaseBasket("Bearer ${preferencesRepository.getUserToken()}", basket)
+        Log.d("CatalogRepository", "decreaseBasket: $response")
+        return response
+    }
+
+    override suspend fun increaseBasket(basket: BasketRequest): ForgotModel {
+        val response = apiService.increaseBasket("Bearer ${preferencesRepository.getUserToken()}", basket)
+        Log.d("CatalogRepository", "increaseBasket: $response")
+        return response
     }
 }

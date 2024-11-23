@@ -1,6 +1,7 @@
 package com.example.drevmassapp.data.api
 
 import com.example.drevmassapp.domain.model.BasketGetResponse
+import com.example.drevmassapp.domain.model.BasketRequest
 import com.example.drevmassapp.domain.model.ForgotModel
 import com.example.drevmassapp.domain.model.LoginModel
 import com.example.drevmassapp.domain.model.LoginResponse
@@ -15,6 +16,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -54,10 +56,28 @@ interface ApiService {
         @Header("Authorization") token: String,
     ): ProductByIdResponse
 
-    @GET("api/basket/{is_using}")
+    @GET("api/basket")
     suspend fun getBasket(
-        @Path("is_using") is_using: String,
+        @Query("is_using") is_using: String,
         @Header("Authorization") token: String,
     ): BasketGetResponse
+
+    @POST("api/basket")
+    suspend fun addBasket(
+        @Header("Authorization") token: String,
+        @Body() requestBody: BasketRequest,
+    ): ForgotModel
+
+    @POST("api/decrease")
+    suspend fun decreaseBasket(
+        @Header("Authorization") token: String,
+        @Body() requestBody: BasketRequest,
+    ): ForgotModel
+
+    @POST("api/increase")
+    suspend fun increaseBasket(
+        @Header("Authorization") token: String,
+        @Body() requestBody: BasketRequest,
+    ): ForgotModel
 
 }
