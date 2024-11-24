@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavigationHostProvider {
 
-    private lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
     private val splashScreenDuration = 1000L
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

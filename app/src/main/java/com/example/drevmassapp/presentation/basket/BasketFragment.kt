@@ -1,13 +1,10 @@
 package com.example.drevmassapp.presentation.basket
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
-import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.drevmassapp.R
@@ -15,13 +12,11 @@ import com.example.drevmassapp.databinding.FragmentBasketBinding
 import com.example.drevmassapp.domain.model.BasketGetResponse
 import com.example.drevmassapp.domain.repository.OnItemClickListener
 import com.example.drevmassapp.domain.repository.OnQuantityClickListener
+import com.example.drevmassapp.presentation.activity.MainActivity
 import com.example.drevmassapp.presentation.catalog.CatalogAdapter
-import com.example.drevmassapp.presentation.product.ProductFragmentDirections
 import com.example.drevmassapp.utils.GridSpacingItemDecoration
 import com.example.drevmassapp.utils.provideNavigationHos
-import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
 @AndroidEntryPoint
 class BasketFragment : Fragment() {
@@ -50,10 +45,10 @@ class BasketFragment : Fragment() {
         viewModel.getBasket(binding.sbBonus.isChecked.toString())
 
         viewModel.basket.observe(viewLifecycleOwner) {
-            obserBasket(it)
+            observeBasket(it)
         }
 
-        binding.sbBonus.setOnClickListener{
+        binding.sbBonus.setOnClickListener {
             viewModel.getBasket(binding.sbBonus.isChecked.toString())
         }
 
@@ -67,15 +62,41 @@ class BasketFragment : Fragment() {
             }
         })
 
-        basketApater.setOnQuantityClickListener(object: OnQuantityClickListener{
-            override fun onQuantityChanged(newQuantity: Int, productId: Int,  increase: Boolean) {
+        basketApater.setOnQuantityClickListener(object : OnQuantityClickListener {
+            override fun onQuantityChanged(newQuantity: Int, productId: Int, increase: Boolean) {
                 viewModel.increaseBasket(newQuantity, productId, 1, increase)
+                viewModel.basketUpdated.observe(viewLifecycleOwner) {
+                    viewModel.getBasket(binding.sbBonus.isChecked.toString())
+                    viewModel.basketUpdated.observe(viewLifecycleOwner) {
+                        viewModel.getBasket(binding.sbBonus.isChecked.toString())
+                    }
+                }
             }
         })
 
+        binding.ibDelete.setOnClickListener {
+            viewModel.delete()
+            viewModel.basketUpdated.observe(viewLifecycleOwner) {
+                viewModel.getBasket(binding.sbBonus.isChecked.toString())
+            }
+        }
+
+        binding.emptyLayout.btnEmpty.setOnClickListener {
+//            val action = BasketFragmentDirections.actionBasketFragmentToCatalogFragment()
+//            findNavController().navigate(action)
+            (requireActivity() as MainActivity).binding.bottomMenu.selectedItemId = R.id.catalogFragment
+
+        }
     }
 
-    private fun obserBasket(basket: BasketGetResponse){
+    private fun observeBasket(basket: BasketGetResponse) {
+        if(basket.basket.isEmpty()){
+            binding.clBasket.visibility = View.GONE
+            binding.clEmpty.visibility = View.VISIBLE
+        }else{
+            binding.clBasket.visibility = View.VISIBLE
+            binding.clEmpty.visibility = View.GONE
+        }
         binding.itogo.tvPrice.text = "${basket.totalPrice.formatWithSpaces()} ₽"
         binding.itogo.tvBasketPrice.text = "${basket.basketPrice.formatWithSpaces()} ₽"
         binding.itogo.tvCount.text = "${basket.countProducts} товара"
@@ -83,12 +104,12 @@ class BasketFragment : Fragment() {
         productAdapter.setProducts(basket.products)
         basketApater.setProducts(basket.basket)
         binding.tvPrice.text = "${basket.totalPrice.formatWithSpaces()} ₽"
-        if(binding.sbBonus.isChecked) {
-            binding.tvBonusDesc.text = "Баллами можно оплатить до ${basket.discount}% от стоимости заказа."
+        if (binding.sbBonus.isChecked) {
+            binding.tvBonusDesc.text =
+                "Баллами можно оплатить до ${basket.discount}% от стоимости заказа."
             binding.tvBonus2.setTextColor(resources.getColor(R.color.color_dark_1000))
             binding.tvBonus.setTextColor(resources.getColor(R.color.color_dark_1000))
-        }
-        else {
+        } else {
             binding.tvBonusDesc.text = "На данный момент у вас нет бонусов для списания."
             binding.tvBonus2.setTextColor(resources.getColor(R.color.color_gray_700))
             binding.tvBonus.setTextColor(resources.getColor(R.color.color_gray_700))
@@ -96,12 +117,12 @@ class BasketFragment : Fragment() {
         binding.tvBonus2.text = basket.usedBonus.formatWithSpaces()
     }
 
-    private fun setBasketAdapter(){
+    private fun setBasketAdapter() {
         basketApater = BasketAdapter()
         binding.rvBasket.adapter = basketApater
     }
 
-    private fun setRelatedAdapter(){
+    private fun setRelatedAdapter() {
         productAdapter = CatalogAdapter(CatalogAdapter.GRID_LAYOUT)
         binding.rvRelated.adapter = productAdapter
         val spacingInPixels = resources.getDimensionPixelSize(R.dimen.grid_spacing_right)

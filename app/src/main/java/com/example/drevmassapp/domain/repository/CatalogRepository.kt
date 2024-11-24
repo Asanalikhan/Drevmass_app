@@ -13,4 +13,6 @@ interface CatalogRepository {
     suspend fun addBasket(basket: BasketRequest): ForgotModel
     suspend fun decreaseBasket(basket: BasketRequest): ForgotModel
     suspend fun increaseBasket(basket: BasketRequest): ForgotModel
+    suspend fun delete(): ForgotModel
+    suspend fun deleteById(id: Int): ForgotModel
 }

@@ -64,4 +64,16 @@ class CatalogRepositoryImpl(private val context: Context): CatalogRepository {
         Log.d("CatalogRepository", "increaseBasket: $response")
         return response
     }
+
+    override suspend fun delete(): ForgotModel{
+        val response = apiService.delete("Bearer ${preferencesRepository.getUserToken()}")
+        Log.d("CatalogRepository", "delete: $response")
+        return response
+    }
+
+    override suspend fun deleteById(id: Int): ForgotModel{
+        val response = apiService.deleteById(id, "Bearer ${preferencesRepository.getUserToken()}")
+        Log.d("CatalogRepository", "delegeByid: ${response}")
+        return response
+    }
 }

@@ -2,10 +2,10 @@ package com.example.drevmassapp.presentation.product
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -13,7 +13,10 @@ import com.bumptech.glide.Glide
 import com.example.drevmassapp.R
 import com.example.drevmassapp.data.remote.ServiceBuilder
 import com.example.drevmassapp.databinding.FragmentProductBinding
+import com.example.drevmassapp.domain.model.ProductByIdResponse
 import com.example.drevmassapp.domain.repository.OnItemClickListener
+import com.example.drevmassapp.presentation.activity.MainActivity
+import com.example.drevmassapp.presentation.basket.BasketViewModel
 import com.example.drevmassapp.presentation.catalog.CatalogAdapter
 import com.example.drevmassapp.utils.GridSpacingItemDecoration
 import com.example.drevmassapp.utils.provideNavigationHos
@@ -25,9 +28,11 @@ class ProductFragment : Fragment() {
     private lateinit var _binding: FragmentProductBinding
     private val binding get() = _binding
     private val viewModel: ProductViewModel by viewModels()
+    private val viewModelBasket: BasketViewModel by viewModels()
     private lateinit var productAdapter: CatalogAdapter
     private val args by navArgs<ProductFragmentArgs>()
     private var title = ""
+    private var count: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,9 +67,47 @@ class ProductFragment : Fragment() {
                 .load(ServiceBuilder.getUrl() + products[0].product.imageSrc)
                 .into(binding.ivProduct)
             productAdapter.setProducts(products[0].recommend)
-            title = products[0].product.title
+            count = products[0].product.basketCount
+            binding.tvButtonPriceFixed.text = "${products[0].product.price.formatWithSpaces()} ₽"
+            setupBasketView(products[0].product)
         }
 
+        binding.includeBasket.btnPlus.setOnClickListener {
+            viewModelBasket.increaseBasket(count, args.id, 1, true)
+            viewModelBasket.basketUpdated.observe(viewLifecycleOwner) {
+                viewModel.getProductsById(args.id)
+            }
+        }
+        binding.includeBasket.btnMinus.setOnClickListener {
+            viewModelBasket.increaseBasket(count, args.id, 1, false)
+            viewModelBasket.basketUpdated.observe(viewLifecycleOwner) {
+                viewModel.getProductsById(args.id)
+            }
+        }
+        binding.includeBasketFixed.btnPlus.setOnClickListener {
+            viewModelBasket.increaseBasket(count, args.id, 1, true)
+            viewModelBasket.basketUpdated.observe(viewLifecycleOwner) {
+                viewModel.getProductsById(args.id)
+            }
+        }
+        binding.includeBasketFixed.btnMinus.setOnClickListener {
+            viewModelBasket.increaseBasket(count, args.id, 1, false)
+            viewModelBasket.basketUpdated.observe(viewLifecycleOwner) {
+                viewModel.getProductsById(args.id)
+            }
+        }
+        binding.btnBasket.setOnClickListener {
+            viewModelBasket.addBasket(1, args.id, 1)
+            viewModelBasket.basketUpdated.observe(viewLifecycleOwner) {
+                viewModel.getProductsById(args.id)
+            }
+        }
+        binding.btnBasketFixed.setOnClickListener {
+            viewModelBasket.addBasket(1, args.id, 1)
+            viewModelBasket.basketUpdated.observe(viewLifecycleOwner) {
+                viewModel.getProductsById(args.id)
+            }
+        }
         binding.rvRelated.adapter = productAdapter
         productAdapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(id: Int?) {
@@ -72,6 +115,17 @@ class ProductFragment : Fragment() {
                 findNavController().navigate(action)
             }
         })
+        binding.includeBasket.ibToBasket.setOnClickListener{
+//            val action = ProductFragmentDirections.actionProductFragmentToBasketFragment()
+//            findNavController().navigate(action)
+            (requireActivity() as MainActivity).binding.bottomMenu.selectedItemId = R.id.basketFragment
+
+        }
+        binding.includeBasketFixed.ibToBasket.setOnClickListener {
+//            val action = ProductFragmentDirections.actionProductFragmentToBasketFragment()
+//            findNavController().navigate(action)
+            (requireActivity() as MainActivity).binding.bottomMenu.selectedItemId = R.id.basketFragment
+        }
 
         binding.toolbar.icBtnInfo.setOnClickListener {
             val sendIntent: String = "android.intent.action.SEND"
@@ -95,6 +149,16 @@ class ProductFragment : Fragment() {
             }
         }
 
+    }
+
+    private fun setupBasketView(product: ProductByIdResponse.Product) {
+        val isInBasket = product.basketCount > 0
+        binding.btnBasket.visibility = if (isInBasket) View.GONE else View.VISIBLE
+        binding.btnBasketFixed.visibility = if (isInBasket) View.GONE else View.VISIBLE
+        binding.btnBasketClicked.visibility = if (isInBasket) View.VISIBLE else View.GONE
+        binding.btnBasketClickedFixed.visibility = if (isInBasket) View.VISIBLE else View.GONE
+        binding.includeBasket.tvQuantity.text = product.basketCount.toString()
+        binding.includeBasketFixed.tvQuantity.text = product.basketCount.toString()
     }
 
     private fun setupViews() {

@@ -23,7 +23,7 @@ data class BasketGetResponse(
 ) {
     data class Basket(
         @SerializedName("count")
-        val count: Int, // 0
+        var count: Int, // 0
         @SerializedName("price")
         val price: Int, // 0
         @SerializedName("product_id")

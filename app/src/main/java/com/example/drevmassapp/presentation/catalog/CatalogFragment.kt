@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.drevmassapp.R
 import com.example.drevmassapp.databinding.FragmentCatalogBinding
 import com.example.drevmassapp.domain.repository.OnItemClickListener
+import com.example.drevmassapp.domain.repository.OnQuantityClickListener
+import com.example.drevmassapp.presentation.basket.BasketViewModel
 import com.example.drevmassapp.utils.GridSpacingItemDecoration
 import com.example.drevmassapp.utils.provideNavigationHos
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +29,7 @@ class CatalogFragment : Fragment(), SortBottomSheetDialog.SortListener {
     private var currentSortType = 1
     private lateinit var catalogAdapter: CatalogAdapter
     private val viewModel: CatalogViewModel by viewModels()
+    private val viewModelBasket: BasketViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +57,16 @@ class CatalogFragment : Fragment(), SortBottomSheetDialog.SortListener {
             sortBottomSheet.setSortListener(this)
             sortBottomSheet.show(parentFragmentManager, sortBottomSheet.tag)
         }
+
+        catalogAdapter.setOnItemQuantityClickListener(object : OnQuantityClickListener {
+            override fun onQuantityChanged(newCount: Int, productId: Int, increase: Boolean) {
+                if(increase){
+                    viewModelBasket.addBasket(1, productId, 1)
+                }else{
+                    viewModelBasket.deleteById(productId)
+                }
+            }
+        })
 
         onSort(currentSortType)
         toggleLayout(true)

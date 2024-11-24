@@ -33,4 +33,12 @@ class CatalogUseCase(private val catalogRepository: CatalogRepository) {
     suspend fun increaseBasket(basketRequest: BasketRequest): ForgotModel{
         return catalogRepository.increaseBasket(basketRequest)
     }
+
+    suspend fun delete(): ForgotModel{
+        return catalogRepository.delete()
+    }
+
+    suspend fun deleteById(id: Int): ForgotModel{
+        return catalogRepository.deleteById(id)
+    }
 }

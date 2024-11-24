@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.drevmassapp.domain.model.BasketGetResponse
+import com.example.drevmassapp.domain.model.BasketRequest
 import com.example.drevmassapp.domain.model.ProductByIdResponse
 import com.example.drevmassapp.domain.usecase.CatalogUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

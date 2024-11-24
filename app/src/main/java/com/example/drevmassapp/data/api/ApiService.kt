@@ -10,6 +10,7 @@ import com.example.drevmassapp.domain.model.ProductResponse
 import com.example.drevmassapp.domain.model.SignupModel
 import com.example.drevmassapp.domain.model.SignupResponse
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -78,6 +79,17 @@ interface ApiService {
     suspend fun increaseBasket(
         @Header("Authorization") token: String,
         @Body() requestBody: BasketRequest,
+    ): ForgotModel
+
+    @DELETE("api/basket")
+    suspend fun delete(
+        @Header("Authorization") token: String,
+    ): ForgotModel
+
+    @DELETE("api/basket/{id}")
+    suspend fun deleteById(
+        @Path("id") id: Int,
+        @Header("Authorization") token: String,
     ): ForgotModel
 
 }

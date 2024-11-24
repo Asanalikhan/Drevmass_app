@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+        android:id="@+id/btn_basket_clicked"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="8dp"
+        android:text="В корзине"
+        android:textSize="17sp"
+        android:paddingTop="15dp"
+        android:paddingStart="24dp"
+        android:fontFamily="@font/sf_text_semibold"
+        android:textColor="@color/btn_bg_not_added_to_cart"
+        android:background="@drawable/background_button_50"
+        app:layout_constraintEnd_toStartOf="@id/ibToBasket"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/quantityContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/btn_basket_clicked"
+        app:layout_constraintEnd_toEndOf="@id/btn_basket_clicked"
+        app:layout_constraintTop_toTopOf="@id/btn_basket_clicked">
+
+        <ImageView
+            android:id="@+id/btnMinus"
+            android:layout_width="44dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:paddingHorizontal="10dp"
+            android:src="@drawable/ic_minus_16" />
+
+        <TextView
+            android:id="@+id/tvQuantity"
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/sf_text_regular"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/color_dark_1000"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:id="@+id/btnPlus"
+            android:layout_width="44dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:paddingHorizontal="10dp"
+            android:src="@drawable/ic_plus_16" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/ibToBasket"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@drawable/bg_btn_50_not_added"
+        android:src="@drawable/ic_arrow_right_24"
+        app:layout_constraintBottom_toBottomOf="@id/btn_basket_clicked"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_basket_clicked" />
+</androidx.constraintlayout.widget.ConstraintLayout>

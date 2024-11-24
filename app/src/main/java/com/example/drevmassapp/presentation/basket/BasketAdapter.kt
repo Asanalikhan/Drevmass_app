@@ -1,6 +1,5 @@
 package com.example.drevmassapp.presentation.basket
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,16 +7,21 @@ import com.bumptech.glide.Glide
 import com.example.drevmassapp.data.remote.ServiceBuilder
 import com.example.drevmassapp.databinding.ItemBasketBinding
 import com.example.drevmassapp.domain.model.BasketGetResponse
-import com.example.drevmassapp.domain.repository.OnItemClickListener
 import com.example.drevmassapp.domain.repository.OnQuantityClickListener
 
-class BasketAdapter : RecyclerView.Adapter<BasketAdapter.BasketViewHolder>(){
+class BasketAdapter : RecyclerView.Adapter<BasketAdapter.BasketViewHolder>() {
 
-    private val products = mutableListOf<BasketGetResponse.Basket>()
+    private var products = mutableListOf<BasketGetResponse.Basket>()
     private lateinit var itemClickListener: OnQuantityClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BasketViewHolder {
-        return BasketViewHolder(ItemBasketBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return BasketViewHolder(
+            ItemBasketBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
 
     }
 
@@ -29,13 +33,30 @@ class BasketAdapter : RecyclerView.Adapter<BasketAdapter.BasketViewHolder>(){
         return products.size
     }
 
+    override fun onBindViewHolder(
+        holder: BasketViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isNotEmpty()) {
+            val payload = payloads[0] as? Int
+            if (payload != null) {
+                holder.updateQuantity(payload)
+            }
+        } else {
+            super.onBindViewHolder(holder, position, payloads)
+        }
+    }
+
+
     fun setProducts(list: List<BasketGetResponse.Basket>) {
         products.clear()
         products.addAll(list)
         notifyDataSetChanged()
     }
 
-    inner class BasketViewHolder(val binding: ItemBasketBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class BasketViewHolder(val binding: ItemBasketBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(product: BasketGetResponse.Basket) {
             Glide.with(binding.ivImage.context)
                 .load(ServiceBuilder.getUrl() + product.productImg)
@@ -45,17 +66,24 @@ class BasketAdapter : RecyclerView.Adapter<BasketAdapter.BasketViewHolder>(){
             binding.tvQuantity.text = product.count.toString()
 
             binding.btnPlus.setOnClickListener {
-                binding.tvQuantity.text = "${product.count}"
-                itemClickListener.onQuantityChanged(product.count, product.productId, false)
+                itemClickListener.onQuantityChanged(product.count, product.productId, true)
+//                products[adapterPosition].count = product.count + 1
+//                notifyItemChanged(adapterPosition, product.count)
+
             }
 
             binding.btnMinus.setOnClickListener {
                 if (product.count > 0) {
-                    binding.tvQuantity.text = "${product.count}"
                     itemClickListener.onQuantityChanged(product.count, product.productId, false)
+//                    products[adapterPosition].count = product.count - 1
+//                    notifyItemChanged(adapterPosition, product.count)
                 }
             }
 
+        }
+
+        fun updateQuantity(newCount: Int) {
+            binding.tvQuantity.text = "$newCount"
         }
     }
 

@@ -45,7 +45,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="222dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/goods"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -90,25 +89,47 @@
                 app:layout_constraintStart_toStartOf="@id/guidelineStart"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <FrameLayout
                 android:id="@+id/btn_basket"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="33dp"
+                android:background="@drawable/background_btn_50_able"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+                app:layout_constraintStart_toStartOf="@id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@id/tvPrice">
+
+                <TextView
+                    android:id="@+id/tv_"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/sf_text_semibold"
+                    android:text="В корзину"
+                    android:textColor="@color/color_white_1000"
+                    android:textSize="17sp"
+                    app:layout_goneMarginStart="0dp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/btn_basket_clicked"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="33dp"
-                android:background="@drawable/background_btn_50_able"
-                android:fontFamily="@font/sf_text_semibold"
-                android:text="В корзину"
-                android:textColor="@color/color_white_1000"
-                android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
                 app:layout_constraintStart_toStartOf="@id/guidelineStart"
-                app:layout_constraintTop_toBottomOf="@id/tvPrice" />
+                app:layout_constraintTop_toBottomOf="@id/tvPrice">
+                <include
+                    android:id="@+id/includeBasket"
+                    layout="@layout/button_clicked"/>
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/btn_learn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="90dp"
                 android:drawableStart="@drawable/ic_course_28"
                 android:drawablePadding="10dp"
                 android:fontFamily="@font/sf_text_semibold"
@@ -120,7 +141,7 @@
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
                 app:layout_constraintStart_toStartOf="@id/guidelineStart"
-                app:layout_constraintTop_toBottomOf="@id/btn_basket" />
+                app:layout_constraintTop_toBottomOf="@id/tvPrice" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clProduct"
@@ -159,7 +180,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/sf_text_semibold"
-                    android:text="от 50-180 см"
                     android:textColor="@color/color_dark_1000"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -203,7 +223,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/sf_text_semibold"
-                    android:text="16 см х 8 см"
                     android:textColor="@color/color_dark_1000"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -272,16 +291,50 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/btn_basket_fixed"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="16dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
             android:background="@drawable/background_btn_50_able"
-            android:fontFamily="@font/sf_text_semibold"
-            android:text="В корзину"
-            android:textColor="@color/color_white_1000"
-            android:textSize="17sp" />
+            android:elevation="4dp">
+
+            <TextView
+                android:id="@+id/tv_order_fixed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:fontFamily="@font/sf_text_semibold"
+                android:text="В корзину"
+                android:textColor="@color/color_white_1000"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_button_price_fixed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/sf_text_semibold"
+                android:textColor="@color/color_white_1000"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/btn_basket_clicked_fixed"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include
+                android:id="@+id/includeBasketFixed"
+                layout="@layout/button_clicked"/>
+        </FrameLayout>
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
