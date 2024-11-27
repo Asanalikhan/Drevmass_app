@@ -27,8 +27,8 @@ class BasketViewModel @Inject constructor(
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> get() = _error
 
-    private val _basketUpdated = MutableLiveData<Unit>()
-    val basketUpdated: LiveData<Unit> get() = _basketUpdated
+    private val _basketUpdated = MutableLiveData<Boolean>()
+    val basketUpdated: LiveData<Boolean> get() = _basketUpdated
 
     fun getBasket(is_using: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -49,7 +49,7 @@ class BasketViewModel @Inject constructor(
 
     fun addBasket(count: Int, productId: Int, userId: Int){
         viewModelScope.launch(Dispatchers.IO) {
-            _basketUpdated.postValue(Unit)
+            _basketUpdated.postValue(false)
             try {
                 val request = BasketRequest(count, productId, userId)
                 Log.d("BasketViewModel", "addBasket request: $request")
@@ -57,14 +57,14 @@ class BasketViewModel @Inject constructor(
             } catch (e: Exception) {
                 Log.d("BasketViewModel", "Error: ${e.message}")
             }finally {
-                _basketUpdated.postValue(Unit)
+                _basketUpdated.postValue(true)
             }
         }
     }
 
     fun increaseBasket(count: Int, productId: Int, userId: Int, increase: Boolean){
         viewModelScope.launch(Dispatchers.IO) {
-            _basketUpdated.postValue(Unit)
+            _basketUpdated.postValue(false)
             try {
                 val request = BasketRequest(count, productId, userId)
                 val response = if (increase) {
@@ -76,35 +76,35 @@ class BasketViewModel @Inject constructor(
             } catch (e: Exception) {
                 Log.e("BasketViewModel", "Error: ${e.message}")
             }finally {
-                _basketUpdated.postValue(Unit)
+                _basketUpdated.postValue(true)
             }
         }
     }
 
     fun delete(){
         viewModelScope.launch(Dispatchers.IO) {
-            _basketUpdated.postValue(Unit)
+            _basketUpdated.postValue(false)
             try{
                 val response = catalogUseCase.delete()
                 Log.d("BasketViewModel", "delete: $response")
             }catch (e: Exception){
                 Log.d("BasketViewModel", "${e.message}")
             }finally {
-                _basketUpdated.postValue(Unit)
+                _basketUpdated.postValue(true)
             }
         }
     }
 
     fun deleteById(id: Int){
         viewModelScope.launch(Dispatchers.IO) {
-            _basketUpdated.postValue(Unit)
+            _basketUpdated.postValue(false)
             try {
                 val response = catalogUseCase.deleteById(id)
                 Log.d("BasketViewModel", "deleteById: $response")
             }catch (e: Exception){
                 Log.d("BasketViewModel", "${e.message}")
             }finally {
-                _basketUpdated.postValue(Unit)
+                _basketUpdated.postValue(true)
             }
         }
     }

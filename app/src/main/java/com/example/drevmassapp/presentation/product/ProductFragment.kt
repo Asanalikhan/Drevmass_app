@@ -119,7 +119,6 @@ class ProductFragment : Fragment() {
 //            val action = ProductFragmentDirections.actionProductFragmentToBasketFragment()
 //            findNavController().navigate(action)
             (requireActivity() as MainActivity).binding.bottomMenu.selectedItemId = R.id.basketFragment
-
         }
         binding.includeBasketFixed.ibToBasket.setOnClickListener {
 //            val action = ProductFragmentDirections.actionProductFragmentToBasketFragment()

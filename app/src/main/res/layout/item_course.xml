@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_view_24_2"
+    android:padding="8dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivCourse"
+        android:layout_width="96dp"
+        android:layout_height="108dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/RoundedCornersImageHorizontal" />
+
+    <TextView
+        android:id="@+id/countLessons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:fontFamily="@font/sf_text_bold"
+        android:textColor="@color/color_gray_700"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/ivCourse"
+        app:layout_constraintTop_toTopOf="@id/ivCourse" />
+
+    <TextView
+        android:id="@+id/tvLessons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:fontFamily="@font/sf_text_regular"
+        android:textColor="@color/color_gray_700"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/countLessons"
+        app:layout_constraintTop_toTopOf="@id/ivCourse" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/sf_text_semibold"
+        android:text="·"
+        android:textColor="@color/color_gray_700"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="@id/tvLessons"
+        app:layout_constraintStart_toEndOf="@id/tvLessons"
+        app:layout_constraintTop_toTopOf="@id/ivCourse" />
+
+    <TextView
+        android:id="@+id/minutes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/sf_text_bold"
+        android:textColor="@color/color_gray_700"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/tvLessons"
+        app:layout_constraintTop_toTopOf="@id/ivCourse" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:fontFamily="@font/sf_text_regular"
+        android:text="мин"
+        android:textColor="@color/color_gray_700"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/minutes"
+        app:layout_constraintTop_toTopOf="@id/ivCourse" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:fontFamily="@font/sf_text_semibold"
+        android:textColor="@color/color_dark_1000"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/countLessons"
+        app:layout_constraintTop_toBottomOf="@id/countLessons" />
+
+    <TextView
+        android:id="@+id/tvBonus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_bonus_39"
+        android:drawableEnd="@drawable/ic_bonus_20"
+        android:drawablePadding="4dp"
+        android:fontFamily="@font/sf_text_bold"
+        android:textColor="@color/color_dark_1000"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/countLessons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/countLessons" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

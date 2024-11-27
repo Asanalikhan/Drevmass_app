@@ -1,9 +1,12 @@
 package com.example.drevmassapp.presentation.basket
 
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -41,7 +44,7 @@ class BasketFragment : Fragment() {
         provideNavigationHos()?.apply {
             setNavigationVisibility(true)
         }
-
+        setupScrollListener()
         viewModel.getBasket(binding.sbBonus.isChecked.toString())
 
         viewModel.basket.observe(viewLifecycleOwner) {
@@ -51,6 +54,9 @@ class BasketFragment : Fragment() {
         binding.sbBonus.setOnClickListener {
             viewModel.getBasket(binding.sbBonus.isChecked.toString())
         }
+
+        binding.includePromocode.tv.text = "Ввести промокод"
+        binding.includePromocode.tv.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(requireContext(), R.drawable.ic_promocode_24), null, null, null)
 
         setBasketAdapter()
         setRelatedAdapter()
@@ -80,6 +86,12 @@ class BasketFragment : Fragment() {
                 viewModel.getBasket(binding.sbBonus.isChecked.toString())
             }
         }
+        binding.toolbar.icBtnInfo.setOnClickListener{
+            viewModel.delete()
+            viewModel.basketUpdated.observe(viewLifecycleOwner) {
+                viewModel.getBasket(binding.sbBonus.isChecked.toString())
+            }
+        }
 
         binding.emptyLayout.btnEmpty.setOnClickListener {
 //            val action = BasketFragmentDirections.actionBasketFragmentToCatalogFragment()
@@ -93,9 +105,11 @@ class BasketFragment : Fragment() {
         if(basket.basket.isEmpty()){
             binding.clBasket.visibility = View.GONE
             binding.clEmpty.visibility = View.VISIBLE
+            binding.btnOrderContainer.visibility = View.GONE
         }else{
             binding.clBasket.visibility = View.VISIBLE
             binding.clEmpty.visibility = View.GONE
+            binding.btnOrderContainer.visibility = View.VISIBLE
         }
         binding.itogo.tvPrice.text = "${basket.totalPrice.formatWithSpaces()} ₽"
         binding.itogo.tvBasketPrice.text = "${basket.basketPrice.formatWithSpaces()} ₽"
@@ -132,5 +146,20 @@ class BasketFragment : Fragment() {
 
     private fun Int.formatWithSpaces(): String {
         return this.toString().reversed().chunked(3).joinToString(" ").reversed()
+    }
+
+    private fun setupScrollListener() {
+        binding.toolbar.tvToolbarTitle.text = "Корзина"
+        binding.toolbar.icBtnBack.visibility = View.GONE
+        binding.toolbar.icBtnInfo.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_delete_24))
+        binding.toolbarContainer.visibility = View.GONE
+        binding.nsBasket.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
+            val threshold = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                92f,
+                resources.displayMetrics
+            ).toInt()
+            binding.toolbarContainer.visibility = if (scrollY >= threshold) View.VISIBLE else View.GONE
+        })
     }
 }
