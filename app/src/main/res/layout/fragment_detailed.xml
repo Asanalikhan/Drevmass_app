@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.detailed.DetailedFragment">
+
+    <include
+        android:id="@+id/iv_background"
+        layout="@layout/notification_error"
+        android:visibility="gone" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-12dp"
+        android:paddingTop="40dp"
+        android:background="@color/color_white_1000"
+        android:visibility="gone"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/up_toolbar" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsDetailed"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivCourse"
+                android:layout_width="0dp"
+                android:layout_height="420dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="200dp"
+                android:fontFamily="@font/sf_display_bold"
+                android:text="Внедрение занятий на Древмасс за 21 день"
+                android:textColor="@color/color_white_1000"
+                android:textSize="28sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/countLessons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="13.5dp"
+                android:drawableStart="@drawable/ic_play_12"
+                android:drawablePadding="4dp"
+                android:fontFamily="@font/sf_text_bold"
+                android:text="3"
+                android:textColor="@color/color_white_1000"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+            <TextView
+                android:id="@+id/tvLessons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:fontFamily="@font/sf_text_regular"
+                android:text="урока"
+                android:textColor="@color/color_white_1000"
+                android:textSize="13sp"
+                app:layout_constraintStart_toEndOf="@id/countLessons"
+                app:layout_constraintTop_toTopOf="@id/countLessons" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/sf_text_semibold"
+                android:text="·"
+                android:textColor="@color/color_white_1000"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="@id/countLessons"
+                app:layout_constraintStart_toEndOf="@id/tvLessons"
+                app:layout_constraintTop_toTopOf="@id/countLessons" />
+
+            <TextView
+                android:id="@+id/minutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/sf_text_bold"
+                android:text="35"
+                android:textColor="@color/color_white_1000"
+                android:textSize="13sp"
+                app:layout_constraintStart_toEndOf="@id/tvLessons"
+                app:layout_constraintTop_toTopOf="@id/countLessons" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:fontFamily="@font/sf_text_regular"
+                android:text="мин"
+                android:textColor="@color/color_white_1000"
+                android:textSize="13sp"
+                app:layout_constraintStart_toEndOf="@id/minutes"
+                app:layout_constraintTop_toTopOf="@id/countLessons" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnStartCourse"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/blurred_background"
+                android:elevation="4dp"
+                android:fontFamily="@font/sf_text_semibold"
+                android:gravity="center"
+                android:text="Начать курс"
+                android:textColor="@color/color_white_1000"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/countLessons" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                android:background="@drawable/background_view_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnStartCourse">
+
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:fontFamily="@font/sf_text_regular"
+                    android:textColor="@color/color_gray_800"
+                    android:textSize="16sp"/>
+
+                <FrameLayout
+                    android:id="@+id/flBonus"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_banner_20">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="120dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/banner_course"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvDescription" />
+
+                    <TextView
+                        android:id="@+id/tvBonusDesc"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|start"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/sf_text_semibold"
+                        android:textColor="@color/color_dark_900"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/tvBonus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/bg_bonus_39"
+                        android:backgroundTint="@color/color_white_1000"
+                        android:drawableEnd="@drawable/ic_bonus_20"
+                        android:drawablePadding="4dp"
+                        android:fontFamily="@font/sf_text_bold"
+                        android:textColor="@color/color_dark_1000"
+                        android:textSize="13sp" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/flZakladka"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/flBonus">
+
+                    <include
+                        android:id="@+id/includeZakladka"
+                        layout="@layout/layout_calendar" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/sf_display_bold"
+                    android:text="Уроки"
+                    android:textColor="@color/color_dark_900"
+                    android:textSize="22sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_marginTop="68dp"
+                    android:layout_marginBottom="30dp"
+                    android:orientation="vertical" />
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

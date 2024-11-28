@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.lesson.LessonFragment">
+
+    <include
+        android:id="@+id/iv_background"
+        layout="@layout/notification_error"
+        android:visibility="gone" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-12dp"
+        android:paddingTop="40dp"
+        android:background="@color/color_white_1000"
+        android:visibility="visible"
+        android:elevation="4dp">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/up_toolbar" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsLesson"
+        android:layout_marginTop="85dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivLesson"
+                android:layout_width="match_parent"
+                android:layout_height="222dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/goods"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/RoundedCornersImage" />
+            <FrameLayout
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_blur"
+                app:layout_constraintTop_toTopOf="@id/ivLesson"
+                app:layout_constraintEnd_toEndOf="@id/ivLesson"
+                app:layout_constraintStart_toStartOf="@id/ivLesson"
+                app:layout_constraintBottom_toBottomOf="@id/ivLesson">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_play_12"
+                    android:padding="12dp"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"/>
+            </FrameLayout>
+            <TextView
+                android:id="@+id/minutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/sf_text_bold"
+                android:text="35"
+                android:layout_marginTop="18.5dp"
+                android:drawableStart="@drawable/ic_clock_12"
+                android:drawablePadding="4dp"
+                android:textColor="@color/color_gray_700"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivLesson" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:fontFamily="@font/sf_text_regular"
+                android:text="мин"
+                android:textColor="@color/color_gray_700"
+                android:textSize="13sp"
+                app:layout_constraintStart_toEndOf="@id/minutes"
+                app:layout_constraintTop_toTopOf="@id/minutes" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_bookmark_24"
+                android:padding="16dp"
+                android:background="@android:color/transparent"
+                app:layout_constraintBottom_toBottomOf="@id/minutes"
+                app:layout_constraintTop_toTopOf="@id/minutes"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/sf_display_bold"
+                android:textColor="@color/color_dark_1000"
+                android:textSize="22sp"
+                android:text="Деревянный роликовый тренажер-массажер для спины Древмасс. Полная комплектация и сборка массажера"
+                android:layout_marginHorizontal="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/minutes" />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/sf_text_regular"
+                android:textColor="@color/color_gray_800"
+                android:textSize="16sp"
+                android:text="Полная комплектация массажера Древмасс включает в себя: инструкцию, гарантийный талон, набор креплений, фиксатор для вертикального хранения, медицинский массажер Су Джок, воск для смазки осей, браслет на руку, тряпочка для протирки.
+Наша цель – обеспечить людей доступным инструментом для поддержания здоровья позвоночника. Дать понимание, что здоровье спины это один из основных показателей комфорта жизни после 55. Чем раньше начать, тем комфортнее будет потом. Жить без боли просто с Древмасс»."
+                android:layout_marginHorizontal="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvName" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/sf_display_semibold"
+                android:text="Товары используемые на видео"
+                android:textColor="@color/color_dark_1000"
+                android:layout_marginStart="16dp"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDescription" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvRelated"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="72dp"
+                android:layout_marginBottom="90dp"
+                android:orientation="horizontal"
+                android:layout_marginStart="16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDescription" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>

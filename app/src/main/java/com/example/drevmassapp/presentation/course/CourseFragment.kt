@@ -12,6 +12,7 @@ import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
 import com.example.drevmassapp.R
 import com.example.drevmassapp.databinding.FragmentCourseBinding
+import com.example.drevmassapp.presentation.activity.MainActivity
 import com.example.drevmassapp.utils.provideNavigationHos
 
 
@@ -37,7 +38,9 @@ class CourseFragment : Fragment() {
         setupView()
 
 
-
+        binding.flZakladka.setOnClickListener {
+            findNavController().navigate(R.id.action_courseFragment_to_detailedFragment)
+        }
     }
 
     private fun setupView() {

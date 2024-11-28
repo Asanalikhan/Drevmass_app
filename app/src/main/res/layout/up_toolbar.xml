@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="42dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/background_reset_fragment"
     android:weightSum="3">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -16,6 +15,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Курсы"
+        android:textSize="17sp"
+        android:visibility="gone"
+        android:fontFamily="@font/sf_text_semibold"
+        android:textColor="@color/btn_bg_not_added_to_cart"
+        app:layout_constraintTop_toTopOf="@id/ic_btn_back"
+        app:layout_constraintStart_toEndOf="@id/ic_btn_back"
+        app:layout_constraintBottom_toBottomOf="@id/ic_btn_back"/>
+    <TextView
         android:id="@+id/tv_toolbar_title"
         android:layout_width="300dp"
         android:layout_height="match_parent"
@@ -27,6 +37,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ic_btn_bookmark"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_bookmark_24"
+        app:layout_constraintTop_toTopOf="@id/ic_btn_info"
+        app:layout_constraintEnd_toStartOf="@id/ic_btn_info"/>
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ic_btn_info"
         android:layout_width="24dp"

@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_courseFragment_to_catalogFragment"
             app:destination="@id/catalogFragment" />
+        <action
+            android:id="@+id/action_courseFragment_to_detailedFragment"
+            app:destination="@id/detailedFragment" />
     </fragment>
     <fragment
         android:id="@+id/basketFragment"
@@ -108,4 +111,9 @@
             android:id="@+id/action_productFragment_to_basketFragment"
             app:destination="@id/basketFragment"/>
     </fragment>
+    <fragment
+        android:id="@+id/detailedFragment"
+        android:name="com.example.drevmassapp.presentation.detailed.DetailedFragment"
+        android:label="fragment_detailed"
+        tools:layout="@layout/fragment_detailed" />
 </navigation>

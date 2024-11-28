@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_btn_20"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="20dp">
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_calendar_24"
+        android:drawablePadding="12dp"
+        android:fontFamily="@font/sf_text_semibold"
+        android:text="Calendar"
+        android:textColor="@color/color_dark_1000"
+        android:textSize="17sp" />
+
+    <com.kyleduo.switchbutton.SwitchButton
+        android:id="@+id/sbBonus"
+        android:layout_width="51dp"
+        android:layout_height="31dp"
+        android:layout_gravity="end"
+        android:checked="true"
+        app:kswAnimationDuration="300"
+        app:kswBackColor="@color/track_color"
+        app:kswBackRadius="15dp"
+        app:kswFadeBack="true"
+        app:kswThumbColor="@color/color_white_1000"
+        app:kswThumbRadius="15dp" />
+
+    <FrameLayout
+        android:id="@+id/dayTime"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:drawablePadding="12dp"
+            android:fontFamily="@font/sf_text_regular"
+            android:text="Day"
+            android:textColor="@color/color_dark_900"
+            android:textSize="17sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="72dp"
+            android:drawableEnd="@drawable/ic_right_16"
+            android:drawablePadding="4dp"
+            android:fontFamily="@font/sf_text_semibold"
+            android:text="Пн"
+            android:textColor="@color/btn_bg_not_added_to_cart"
+            android:textSize="17sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:drawablePadding="12dp"
+            android:fontFamily="@font/sf_text_regular"
+            android:text="Time"
+            android:textColor="@color/color_dark_900"
+            android:textSize="17sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="120dp"
+            android:drawableEnd="@drawable/ic_right_16"
+            android:drawablePadding="4dp"
+            android:fontFamily="@font/sf_text_semibold"
+            android:text="8:00"
+            android:textColor="@color/btn_bg_not_added_to_cart"
+            android:textSize="17sp" />
+    </FrameLayout>
+
+</FrameLayout>
