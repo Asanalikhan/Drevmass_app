@@ -13,7 +13,9 @@ import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
 import com.example.drevmassapp.R
 import com.example.drevmassapp.databinding.FragmentCourseBinding
+import com.example.drevmassapp.domain.repository.OnItemClickListener
 import com.example.drevmassapp.presentation.activity.MainActivity
+import com.example.drevmassapp.presentation.catalog.CatalogFragmentDirections
 import com.example.drevmassapp.utils.provideNavigationHos
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,6 +54,13 @@ class CourseFragment : Fragment() {
         }
 
         setupAdapter()
+
+        adapter.setOnClickListener(object : OnItemClickListener {
+            override fun onItemClick(id: Int?) {
+                val action = CourseFragmentDirections.actionCourseFragmentToDetailedFragment(id!!)
+                findNavController().navigate(action)
+            }
+        })
 
         binding.flZakladka.setOnClickListener {
             findNavController().navigate(R.id.action_courseFragment_to_bookmarkFragment)

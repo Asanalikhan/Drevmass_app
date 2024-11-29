@@ -56,7 +56,6 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="200dp"
                 android:fontFamily="@font/sf_display_bold"
-                android:text="Внедрение занятий на Древмасс за 21 день"
                 android:textColor="@color/color_white_1000"
                 android:textSize="28sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +71,6 @@
                 android:drawableStart="@drawable/ic_play_12"
                 android:drawablePadding="4dp"
                 android:fontFamily="@font/sf_text_bold"
-                android:text="3"
                 android:textColor="@color/color_white_1000"
                 android:textSize="13sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -84,7 +82,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:fontFamily="@font/sf_text_regular"
-                android:text="урока"
                 android:textColor="@color/color_white_1000"
                 android:textSize="13sp"
                 app:layout_constraintStart_toEndOf="@id/countLessons"
@@ -108,7 +105,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/sf_text_bold"
-                android:text="35"
                 android:textColor="@color/color_white_1000"
                 android:textSize="13sp"
                 app:layout_constraintStart_toEndOf="@id/tvLessons"
@@ -231,11 +227,12 @@
                     android:textSize="22sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvLessons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:layout_marginTop="68dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginBottom="30dp"
                     android:orientation="vertical" />
 

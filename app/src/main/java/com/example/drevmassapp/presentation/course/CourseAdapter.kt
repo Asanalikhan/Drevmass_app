@@ -8,12 +8,12 @@ import com.bumptech.glide.Glide
 import com.example.drevmassapp.data.remote.ServiceBuilder
 import com.example.drevmassapp.databinding.ItemCourseBinding
 import com.example.drevmassapp.domain.model.CourseGetResponse
-import com.example.drevmassapp.domain.repository.OnQuantityClickListener
+import com.example.drevmassapp.domain.repository.OnItemClickListener
 
 class CourseAdapter : RecyclerView.Adapter<CourseAdapter.CourseViewHolder>() {
 
     private var products = mutableListOf<CourseGetResponse.CourseGetResponseItem>()
-    private lateinit var itemClickListener: OnQuantityClickListener
+    private lateinit var itemClickListener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseViewHolder {
         return CourseViewHolder(
@@ -51,10 +51,18 @@ class CourseAdapter : RecyclerView.Adapter<CourseAdapter.CourseViewHolder>() {
             else binding.tvBonus.visibility = View.GONE
             binding.countLessons.text = product.lessonCnt.toString()
             binding.tvTitle.text = product.name
+            binding.root.setOnClickListener {
+                itemClickListener.onItemClick(product.id)
+            }
+            if(product.lessonCnt >= 4){
+                binding.tvLessons.text = "уроков"
+            }else if(product.lessonCnt < 4){
+                binding.tvLessons.text = "урока"
+            }
         }
     }
 
-    fun setOnQuantityClickListener(listener: OnQuantityClickListener) {
+    fun setOnClickListener(listener: OnItemClickListener) {
         itemClickListener = listener
     }
 
