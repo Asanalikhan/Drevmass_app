@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.example.drevmassapp.R
 import com.example.drevmassapp.databinding.FragmentBasketBinding
 import com.example.drevmassapp.databinding.FragmentBookmarkBinding
+import com.example.drevmassapp.utils.provideNavigationHos
 
 class BookmarkFragment : Fragment() {
 
@@ -25,6 +26,13 @@ class BookmarkFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        provideNavigationHos()?.apply {
+            setNavigationVisibility(false)
+        }
+
+        binding.toolbar.icBtnBack.setOnClickListener {
+            activity?.onBackPressed()
+        }
 
     }
 

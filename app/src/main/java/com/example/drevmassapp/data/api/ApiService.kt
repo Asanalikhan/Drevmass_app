@@ -2,6 +2,8 @@ package com.example.drevmassapp.data.api
 
 import com.example.drevmassapp.domain.model.BasketGetResponse
 import com.example.drevmassapp.domain.model.BasketRequest
+import com.example.drevmassapp.domain.model.CourseBonusResponse
+import com.example.drevmassapp.domain.model.CourseGetResponse
 import com.example.drevmassapp.domain.model.ForgotModel
 import com.example.drevmassapp.domain.model.LoginModel
 import com.example.drevmassapp.domain.model.LoginResponse
@@ -91,5 +93,15 @@ interface ApiService {
         @Path("id") id: Int,
         @Header("Authorization") token: String,
     ): ForgotModel
+
+    @GET("api/course")
+    suspend fun getCourse(
+        @Header("Authorization") token: String,
+    ): CourseGetResponse
+
+    @GET("api/course/bonus")
+    suspend fun getCourseBonus(
+        @Header("Authorization") token: String,
+    ): CourseBonusResponse
 
 }

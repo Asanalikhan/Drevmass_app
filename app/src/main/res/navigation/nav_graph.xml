@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_courseFragment_to_detailedFragment"
             app:destination="@id/detailedFragment" />
+        <action
+            android:id="@+id/action_courseFragment_to_bookmarkFragment"
+            app:destination="@id/bookmarkFragment" />
     </fragment>
     <fragment
         android:id="@+id/basketFragment"
@@ -116,4 +119,9 @@
         android:name="com.example.drevmassapp.presentation.detailed.DetailedFragment"
         android:label="fragment_detailed"
         tools:layout="@layout/fragment_detailed" />
+    <fragment
+        android:id="@+id/bookmarkFragment"
+        android:name="com.example.drevmassapp.presentation.bookmark.BookmarkFragment"
+        android:label="fragment_bookmark"
+        tools:layout="@layout/fragment_bookmark" />
 </navigation>

@@ -4,10 +4,14 @@ import android.content.Context
 import com.example.drevmassapp.data.local.PreferencesManager
 import com.example.drevmassapp.data.repository.AuthRepositoryImpl
 import com.example.drevmassapp.data.repository.CatalogRepositoryImpl
+import com.example.drevmassapp.data.repository.CourseRepositoryImpl
+import com.example.drevmassapp.domain.model.CourseGetResponse
 import com.example.drevmassapp.domain.repository.AuthRepository
 import com.example.drevmassapp.domain.repository.CatalogRepository
+import com.example.drevmassapp.domain.repository.CourseRepository
 import com.example.drevmassapp.domain.usecase.AuthUseCase
 import com.example.drevmassapp.domain.usecase.CatalogUseCase
+import com.example.drevmassapp.domain.usecase.CourseUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -39,4 +43,16 @@ object AppModule {
     fun provideCatalogUseCase(catalogRepository: CatalogRepository): CatalogUseCase {
         return CatalogUseCase(catalogRepository)
     }
+
+    @Provides
+    fun provideCourseRepository(@ApplicationContext context: Context): CourseRepository{
+        return CourseRepositoryImpl(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCourseUseCase(courseRepository: CourseRepository): CourseUseCase{
+        return CourseUseCase(courseRepository)
+    }
+
 }
