@@ -8,6 +8,8 @@ import com.example.drevmassapp.data.remote.ServiceBuilder
 import com.example.drevmassapp.domain.model.CourseBonusResponse
 import com.example.drevmassapp.domain.model.CourseByIdResponse
 import com.example.drevmassapp.domain.model.CourseGetResponse
+import com.example.drevmassapp.domain.model.FavoriteGetResponse
+import com.example.drevmassapp.domain.model.ForgotModel
 import com.example.drevmassapp.domain.model.LessonByIdResponse
 import com.example.drevmassapp.domain.repository.CourseRepository
 
@@ -38,6 +40,24 @@ class CourseRepositoryImpl(private val context: Context) : CourseRepository {
     override suspend fun getLessonById(id: Int, course_id: Int): LessonByIdResponse {
         val response = apiService.getLessonById(id, course_id, token)
         Log.d("CourseRepositoryImpl", "LessonById $response")
+        return response
+    }
+
+    override suspend fun getFavorite(): FavoriteGetResponse {
+        val response = apiService.getFavorites(token)
+        Log.d("CourseRepositoryImpl", "Favorites: $response")
+        return response
+    }
+
+    override suspend fun postFavorite(lesson_id: Int): ForgotModel {
+        val response = apiService.postFavorite(lesson_id, token)
+        Log.d("CourseRepositoryImpl", "Post Favorite: $response")
+        return response
+    }
+
+    override suspend fun deleteFavorite(lesson_id: Int): ForgotModel {
+        val response = apiService.deleteFavorite(lesson_id, token)
+        Log.d("CourseRepositoryImpl", "Delete Favorite: $response")
         return response
     }
 }

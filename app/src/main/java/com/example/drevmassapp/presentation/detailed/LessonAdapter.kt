@@ -53,6 +53,10 @@ class LessonAdapter : RecyclerView.Adapter<LessonAdapter.LessonViewHolder>() {
                 itemClickListener.onItemClick(product.id)
             }
 
+            binding.ivBookmark.setOnClickListener {
+                TODO("add bookmark onclick feature")
+            }
+
         }
     }
 

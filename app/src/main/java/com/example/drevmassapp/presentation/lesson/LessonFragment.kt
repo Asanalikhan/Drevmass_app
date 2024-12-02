@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -13,6 +14,7 @@ import com.example.drevmassapp.R
 import com.example.drevmassapp.data.remote.ServiceBuilder
 import com.example.drevmassapp.databinding.FragmentLessonBinding
 import com.example.drevmassapp.domain.repository.OnItemClickListener
+import com.example.drevmassapp.presentation.bookmark.BookmarkViewModel
 import com.example.drevmassapp.presentation.catalog.CatalogAdapter
 import com.example.drevmassapp.presentation.product.ProductFragmentDirections
 import com.example.drevmassapp.utils.GridSpacingItemDecoration
@@ -25,8 +27,10 @@ class LessonFragment : Fragment() {
     private lateinit var _binding: FragmentLessonBinding
     private val binding get() = _binding
     private val viewModel: LessonViewModel by viewModels()
+    private val viewModelBookmark: BookmarkViewModel by viewModels()
     private val args by navArgs<LessonFragmentArgs>()
     private lateinit var productAdapter: CatalogAdapter
+    private var isFavorite = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,6 +59,9 @@ class LessonFragment : Fragment() {
             binding.tvDescription.text = it.description
             binding.toolbar.tvToolbarTitle.text = "Урок ${it.id}"
             productAdapter.setProducts(it.usedProducts)
+            isFavorite = it.isFavorite
+            binding.toolbar.icBtnBookmark.setImageResource(if(it.isFavorite) R.drawable.ic_bookmark_fill_24 else R.drawable.ic_bookmark_24)
+            binding.icBoomark.setImageResource(if(it.isFavorite) R.drawable.ic_bookmark_fill_24 else R.drawable.ic_bookmark_24)
         }
 
         binding.rvRelated.adapter = productAdapter
@@ -73,8 +80,30 @@ class LessonFragment : Fragment() {
             }
         }
 
+        binding.toolbar.icBtnBookmark.setOnClickListener {
+            if (isFavorite) {
+                viewModelBookmark.deleteFavorite(args.id)
+            } else {
+                viewModelBookmark.postFavorite(args.id)
+            }
+            isFavorite = !isFavorite
+            binding.toolbar.icBtnBookmark.setImageResource(if (isFavorite) R.drawable.ic_bookmark_fill_24 else R.drawable.ic_bookmark_24)
+            binding.icBoomark.setImageResource(if (isFavorite) R.drawable.ic_bookmark_fill_24 else R.drawable.ic_bookmark_24)
+        }
+
+        binding.icBoomark.setOnClickListener {
+            if (isFavorite) {
+                viewModelBookmark.deleteFavorite(args.id)
+            } else {
+                viewModelBookmark.postFavorite(args.id)
+            }
+            isFavorite = !isFavorite
+            binding.toolbar.icBtnBookmark.setImageResource(if (isFavorite) R.drawable.ic_bookmark_fill_24 else R.drawable.ic_bookmark_24)
+            binding.icBoomark.setImageResource(if (isFavorite) R.drawable.ic_bookmark_fill_24 else R.drawable.ic_bookmark_24)
+        }
+
         binding.toolbar.icBtnBack.setOnClickListener{
-            requireActivity().onBackPressed()
+            findNavController().popBackStack()
         }
     }
 

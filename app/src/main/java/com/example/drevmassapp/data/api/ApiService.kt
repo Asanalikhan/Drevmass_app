@@ -5,6 +5,7 @@ import com.example.drevmassapp.domain.model.BasketRequest
 import com.example.drevmassapp.domain.model.CourseBonusResponse
 import com.example.drevmassapp.domain.model.CourseByIdResponse
 import com.example.drevmassapp.domain.model.CourseGetResponse
+import com.example.drevmassapp.domain.model.FavoriteGetResponse
 import com.example.drevmassapp.domain.model.ForgotModel
 import com.example.drevmassapp.domain.model.LessonByIdResponse
 import com.example.drevmassapp.domain.model.LoginModel
@@ -20,20 +21,27 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
 
     @POST("api/login")
-    suspend fun login(@Body request: LoginModel): LoginResponse
+    suspend fun login(
+        @Body request: LoginModel
+    ): LoginResponse
 
     @FormUrlEncoded
     @POST("api/forgot_password")
-    suspend fun forgot(@Field("email") email: String): ForgotModel
+    suspend fun forgot(
+        @Field("email") email: String
+    ): ForgotModel
 
     @POST("api/signup")
-    suspend fun signup(@Body request: SignupModel): SignupResponse
+    suspend fun signup(
+        @Body request: SignupModel
+    ): SignupResponse
 
     @GET("api/products")
     suspend fun getProducts(
@@ -118,5 +126,23 @@ interface ApiService {
         @Path("course_id") course_id: Int,
         @Header("Authorization") token: String,
     ): LessonByIdResponse
+
+    @GET("api/favorites")
+    suspend fun getFavorites(
+        @Header("Authorization") token: String,
+    ): FavoriteGetResponse
+
+    @FormUrlEncoded
+    @POST("api/favorites")
+    suspend fun postFavorite(
+        @Field("lesson_id") lessonId: Int,
+        @Header("Authorization") token: String,
+    ): ForgotModel
+
+    @DELETE("api/favorites/{lessonid}")
+    suspend fun deleteFavorite(
+        @Path("lessonid") lessonId: Int,
+        @Header("Authorization") token: String
+    ): ForgotModel
 
 }

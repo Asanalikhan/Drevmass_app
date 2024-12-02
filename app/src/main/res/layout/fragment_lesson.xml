@@ -87,6 +87,7 @@
                 app:layout_constraintTop_toTopOf="@id/minutes" />
 
             <ImageButton
+                android:id="@+id/icBoomark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_bookmark_24"

@@ -3,8 +3,11 @@ package com.example.drevmassapp.domain.usecase
 import com.example.drevmassapp.domain.model.CourseBonusResponse
 import com.example.drevmassapp.domain.model.CourseByIdResponse
 import com.example.drevmassapp.domain.model.CourseGetResponse
+import com.example.drevmassapp.domain.model.FavoriteGetResponse
+import com.example.drevmassapp.domain.model.ForgotModel
 import com.example.drevmassapp.domain.model.LessonByIdResponse
 import com.example.drevmassapp.domain.repository.CourseRepository
+import java.text.Normalizer.Form
 
 class CourseUseCase(private val courseRepository: CourseRepository) {
 
@@ -22,6 +25,18 @@ class CourseUseCase(private val courseRepository: CourseRepository) {
 
     suspend fun getLessonById(id: Int, course_id: Int): LessonByIdResponse{
         return courseRepository.getLessonById(id, course_id)
+    }
+
+    suspend fun getFavorite(): FavoriteGetResponse{
+        return courseRepository.getFavorite()
+    }
+
+    suspend fun postFavorite(lesson_id: Int): ForgotModel{
+        return courseRepository.postFavorite(lesson_id)
+    }
+
+    suspend fun deleteFavorite(lesson_id: Int): ForgotModel{
+        return courseRepository.deleteFavorite(lesson_id)
     }
 }
 

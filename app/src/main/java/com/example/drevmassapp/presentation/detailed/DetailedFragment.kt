@@ -62,6 +62,7 @@ class DetailedFragment : Fragment() {
         }
 
 
+
         adapter.setOnClickListener(object : OnItemClickListener{
             override fun onItemClick(id: Int?) {
                 val action = DetailedFragmentDirections.actionDetailedFragmentToLessonFragment(id!!, args.courseId)
