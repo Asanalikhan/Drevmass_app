@@ -1,11 +1,13 @@
 package com.example.drevmassapp.presentation.bookmark
 
+import android.content.om.FabricatedOverlay
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.drevmassapp.domain.model.FavoriteGetResponse
+import com.example.drevmassapp.domain.model.FavoriteResponse
 import com.example.drevmassapp.domain.model.ForgotModel
 import com.example.drevmassapp.domain.usecase.CourseUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,8 +20,8 @@ class BookmarkViewModel @Inject constructor(
     private val useCase: CourseUseCase
 ): ViewModel() {
 
-    private var _favorites = MutableLiveData<FavoriteGetResponse>()
-    val favorites: LiveData<FavoriteGetResponse> get() = _favorites
+    private var _favorites = MutableLiveData<List<FavoriteResponse>>()
+    val favorites: LiveData<List<FavoriteResponse>> get() = _favorites
 
     private var _response = MutableLiveData<ForgotModel>()
     val response: LiveData<ForgotModel> get() = _response

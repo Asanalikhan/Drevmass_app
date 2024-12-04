@@ -50,5 +50,7 @@
     <color name="bg_tab_bar">#F9F9F9</color>
     <color name="btn_thumb">#E0DEDD</color>
     <color name="border_secondary">#EFEBE9</color>
+    <color name="transparent_color">#00000000</color> <!-- Fully transparent -->
+
 
 </resources>

@@ -141,7 +141,15 @@
         android:id="@+id/bookmarkFragment"
         android:name="com.example.drevmassapp.presentation.bookmark.BookmarkFragment"
         android:label="fragment_bookmark"
-        tools:layout="@layout/fragment_bookmark" />
+        tools:layout="@layout/fragment_bookmark" >
+        <action
+            android:id="@+id/action_bookmarkFragment_to_lessonFragment"
+            app:destination="@id/lessonFragment">
+            <argument
+                android:name="id"
+                app:argType="integer"/>
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/lessonFragment"
         android:name="com.example.drevmassapp.presentation.lesson.LessonFragment"

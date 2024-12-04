@@ -1,5 +1,6 @@
 package com.example.drevmassapp.presentation.lesson
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.example.drevmassapp.R
 import com.example.drevmassapp.data.remote.ServiceBuilder
 import com.example.drevmassapp.databinding.FragmentLessonBinding
+import com.example.drevmassapp.domain.model.CourseByIdResponse
 import com.example.drevmassapp.domain.repository.OnItemClickListener
 import com.example.drevmassapp.presentation.bookmark.BookmarkViewModel
 import com.example.drevmassapp.presentation.catalog.CatalogAdapter
@@ -105,6 +107,13 @@ class LessonFragment : Fragment() {
         binding.toolbar.icBtnBack.setOnClickListener{
             findNavController().popBackStack()
         }
+
+        productAdapter.setOnItemClickListener(object : OnItemClickListener{
+            override fun onItemClick(id: Int?) {
+                val action = LessonFragmentDirections.actionLessonFragmentToProductFragment(id!!)
+                findNavController().navigate(action)
+            }
+        })
     }
 
     private fun setupViews() {

@@ -30,16 +30,21 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsBookmark"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/color_white_1000"
         app:layout_constraintTop_toBottomOf="@id/toolbar_container"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="24dp">
+
             <TextView
+                android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Мои закладки"
@@ -50,9 +55,27 @@
                 android:textColor="@color/color_dark_900"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
-            <androidx.recyclerview.widget.RecyclerView
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clEmpty"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_view_24"
+                android:visibility="gone"
+                android:layout_marginTop="70dp"
+                android:layout_marginHorizontal="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle">
+                <include
+                    android:id="@+id/emptyLayout"
+                    layout="@layout/empty_layout"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvBookmark"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_marginTop="60dp"
                 app:layout_constraintTop_toTopOf="parent"

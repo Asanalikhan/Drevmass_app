@@ -15,11 +15,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
     <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Курсы"
         android:textSize="17sp"
         android:visibility="gone"
+        android:layout_marginStart="5dp"
         android:fontFamily="@font/sf_text_semibold"
         android:textColor="@color/btn_bg_not_added_to_cart"
         app:layout_constraintTop_toTopOf="@id/ic_btn_back"

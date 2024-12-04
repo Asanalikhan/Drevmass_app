@@ -18,7 +18,7 @@
         android:layout_marginStart="-12dp"
         android:paddingTop="40dp"
         android:background="@color/color_white_1000"
-        android:visibility="gone"
+        android:visibility="visible"
         android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,10 +57,11 @@
                 android:layout_marginTop="200dp"
                 android:fontFamily="@font/sf_display_bold"
                 android:textColor="@color/color_white_1000"
-                android:textSize="28sp"
+                android:textSize="28dp"
+                android:elevation="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@id/ivCourse" />
 
             <TextView
                 android:id="@+id/countLessons"

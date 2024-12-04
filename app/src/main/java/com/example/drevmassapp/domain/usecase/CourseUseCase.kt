@@ -4,6 +4,7 @@ import com.example.drevmassapp.domain.model.CourseBonusResponse
 import com.example.drevmassapp.domain.model.CourseByIdResponse
 import com.example.drevmassapp.domain.model.CourseGetResponse
 import com.example.drevmassapp.domain.model.FavoriteGetResponse
+import com.example.drevmassapp.domain.model.FavoriteResponse
 import com.example.drevmassapp.domain.model.ForgotModel
 import com.example.drevmassapp.domain.model.LessonByIdResponse
 import com.example.drevmassapp.domain.repository.CourseRepository
@@ -27,7 +28,7 @@ class CourseUseCase(private val courseRepository: CourseRepository) {
         return courseRepository.getLessonById(id, course_id)
     }
 
-    suspend fun getFavorite(): FavoriteGetResponse{
+    suspend fun getFavorite(): List<FavoriteResponse>{
         return courseRepository.getFavorite()
     }
 

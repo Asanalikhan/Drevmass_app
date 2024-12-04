@@ -6,6 +6,7 @@ import com.example.drevmassapp.domain.model.CourseBonusResponse
 import com.example.drevmassapp.domain.model.CourseByIdResponse
 import com.example.drevmassapp.domain.model.CourseGetResponse
 import com.example.drevmassapp.domain.model.FavoriteGetResponse
+import com.example.drevmassapp.domain.model.FavoriteResponse
 import com.example.drevmassapp.domain.model.ForgotModel
 import com.example.drevmassapp.domain.model.LessonByIdResponse
 import com.example.drevmassapp.domain.model.LoginModel
@@ -130,7 +131,7 @@ interface ApiService {
     @GET("api/favorites")
     suspend fun getFavorites(
         @Header("Authorization") token: String,
-    ): FavoriteGetResponse
+    ): List<FavoriteResponse>
 
     @FormUrlEncoded
     @POST("api/favorites")

@@ -9,6 +9,7 @@ import com.example.drevmassapp.domain.model.CourseBonusResponse
 import com.example.drevmassapp.domain.model.CourseByIdResponse
 import com.example.drevmassapp.domain.model.CourseGetResponse
 import com.example.drevmassapp.domain.model.FavoriteGetResponse
+import com.example.drevmassapp.domain.model.FavoriteResponse
 import com.example.drevmassapp.domain.model.ForgotModel
 import com.example.drevmassapp.domain.model.LessonByIdResponse
 import com.example.drevmassapp.domain.repository.CourseRepository
@@ -43,7 +44,7 @@ class CourseRepositoryImpl(private val context: Context) : CourseRepository {
         return response
     }
 
-    override suspend fun getFavorite(): FavoriteGetResponse {
+    override suspend fun getFavorite(): List<FavoriteResponse> {
         val response = apiService.getFavorites(token)
         Log.d("CourseRepositoryImpl", "Favorites: $response")
         return response
