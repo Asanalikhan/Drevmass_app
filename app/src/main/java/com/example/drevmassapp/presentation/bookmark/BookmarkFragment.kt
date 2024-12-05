@@ -64,6 +64,9 @@ class BookmarkFragment : Fragment() {
         adapter.bookmarkClickListener(object : OnQuantityClickListener{
             override fun onQuantityChanged(newQuantity: Int, productId: Int, increase: Boolean) {
                 viewModel.deleteFavorite(productId)
+                viewModel.loading.observe(viewLifecycleOwner){
+                    if(it)viewModel.getFavorites()
+                }
             }
         })
 

@@ -51,7 +51,6 @@ class BookmarkAdapter : RecyclerView.Adapter<BookmarkAdapter.BookmarkViewHolder>
             adapter.setOnBookmarkListener(object : OnQuantityClickListener {
                 override fun onQuantityChanged(newQuantity: Int, productId: Int, increase: Boolean) {
                     bookmarkClickListener.onQuantityChanged(1, productId, increase)
-                    notifyDataSetChanged()
                 }
             })
         }

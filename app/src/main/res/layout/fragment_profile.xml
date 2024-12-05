@@ -1,14 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/btn_bg_not_added_to_cart"
     tools:context=".presentation.profile.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="90dp"
+        android:fontFamily="@font/sf_display_bold"
+        android:text="Name"
+        android:textColor="@color/color_white_1000"
+        android:textSize="28dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tvNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/sf_text_semibold"
+        android:text="number"
+        android:textColor="@color/color_white_1000"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvName" />
+
+    <FrameLayout
+        android:id="@+id/flBonus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvNumber">
+
+        <include
+            android:id="@+id/includeBonus"
+            layout="@layout/layout_my_bonus" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/background_view_24"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/flBonus">
+
+        <FrameLayout
+            android:id="@+id/flPromocode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <include
+                android:id="@+id/includePromocode"
+                layout="@layout/promocode_zakradka" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/flMyData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <include
+                android:id="@+id/includeMyData"
+                layout="@layout/layout_my_data" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/flContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <include
+                android:id="@+id/includeContact"
+                layout="@layout/layout_contact" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/btn_exit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="12dp"
+            android:fontFamily="@font/sf_text_semibold"
+            android:paddingVertical="13dp"
+            android:paddingStart="16dp"
+            android:text="Выйти"
+            android:textColor="@color/color_gray_800"
+            android:textSize="15sp"
+            app:drawableStartCompat="@drawable/ic_logout_24" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

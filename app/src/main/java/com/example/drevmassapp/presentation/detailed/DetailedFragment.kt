@@ -1,12 +1,13 @@
 package com.example.drevmassapp.presentation.detailed
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -29,7 +30,6 @@ class DetailedFragment : Fragment() {
     private val args by navArgs<DetailedFragmentArgs>()
     private val viewModel: DetailedViewModel by viewModels()
     private val viewModelBookmark: BookmarkViewModel by viewModels()
-    private var title = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,40 +50,52 @@ class DetailedFragment : Fragment() {
 
         viewModel.getCourse(args.courseId)
 
-        viewModel.response.observe(viewLifecycleOwner){
+        viewModel.response.observe(viewLifecycleOwner) {
             Glide.with(binding.ivCourse.context)
                 .load(ServiceBuilder.getUrl() + it.course.imageSrc)
                 .into(binding.ivCourse)
-            title = it.course.name
             binding.tvTitle.text = it.course.name
+            binding.tvTitle2.text = it.course.name
             binding.tvDescription.text = it.course.description
             binding.tvBonus.text = it.course.bonusInfo.price.toString()
-            binding.tvBonusDesc.text = "Начислим ${it.course.bonusInfo.price} бонусов за прохождение курса"
+            binding.tvBonusDesc.text =
+                "Начислим ${it.course.bonusInfo.price} бонусов за прохождение курса"
             binding.countLessons.text = it.course.lessonCnt.toString()
             binding.minutes.text = it.course.duration.toString()
-            if(it.course.lessonCnt >= 4){
+            if (it.course.lessonCnt >= 4) {
                 binding.tvLessons.text = "уроков"
-            }else if(it.course.lessonCnt < 4){
+            } else if (it.course.lessonCnt < 4) {
                 binding.tvLessons.text = "урока"
             }
             adapter.setProducts(it.course.lessons)
         }
 
-        adapter.setOnClickListener(object : OnItemClickListener{
+        adapter.setOnClickListener(object : OnItemClickListener {
             override fun onItemClick(id: Int?) {
-                val action = DetailedFragmentDirections.actionDetailedFragmentToLessonFragment(id!!, args.courseId)
+                val action = DetailedFragmentDirections.actionDetailedFragmentToLessonFragment(
+                    id!!,
+                    args.courseId
+                )
                 findNavController().navigate(action)
             }
         })
 
-        adapter.setOnBookmarkListener(object : OnQuantityClickListener{
+        adapter.setOnBookmarkListener(object : OnQuantityClickListener {
             override fun onQuantityChanged(newQuantity: Int, productId: Int, increase: Boolean) {
-                if(increase)viewModelBookmark.postFavorite(productId)
+                if (increase) viewModelBookmark.postFavorite(productId)
                 else viewModelBookmark.deleteFavorite(productId)
             }
         })
 
-        binding.toolbar.icBtnInfo.setOnClickListener {
+        binding.includeZakladka.sbBonus.setOnClickListener {
+            if (binding.includeZakladka.sbBonus.isChecked) {
+                binding.includeZakladka.dayTime.visibility = View.VISIBLE
+            } else {
+                binding.includeZakladka.dayTime.visibility = View.GONE
+            }
+        }
+
+        binding.icBtnShare.setOnClickListener {
             val sendIntent: String = "android.intent.action.SEND"
             val shareIntent = Intent().apply {
                 action = sendIntent
@@ -92,30 +104,38 @@ class DetailedFragment : Fragment() {
             }
             startActivity(Intent.createChooser(shareIntent, null))
         }
-        binding.toolbar.icBtnBack.setOnClickListener {
+        binding.icBtnBack.setOnClickListener {
             findNavController().popBackStack()
         }
     }
 
-    private fun setup(){
+    private fun setup() {
         adapter = LessonAdapter()
         binding.rvLessons.adapter = adapter
-        binding.toolbar.icBtnInfo.setImageResource(R.drawable.ic_share_white_24)
-        binding.toolbar.icBtnBack.setImageResource(R.drawable.ic_back_white_24)
-        binding.toolbarContainer.background.setTint(Color.TRANSPARENT)
-        binding.nsDetailed.setOnScrollChangeListener{ _, _, scrollY, _, _ ->
-            if(scrollY > 600){
-                binding.toolbarContainer.background.setTint(Color.WHITE)
-                binding.toolbar.tvToolbarTitle.text = title
-                binding.toolbar.icBtnInfo.setImageResource(R.drawable.ic_share_24)
-                binding.toolbar.icBtnBack.setImageResource(R.drawable.ic_back_colored_24)
-            }else{
-                binding.toolbarContainer.background.setTint(Color.TRANSPARENT)
-                binding.toolbar.tvToolbarTitle.text = ""
-                binding.toolbar.icBtnInfo.setImageResource(R.drawable.ic_share_white_24)
-                binding.toolbar.icBtnBack.setImageResource(R.drawable.ic_back_white_24)
+        binding.tvTitle2.visibility = View.GONE
+        binding.nsDetailed.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
+            val threshold = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                292f,
+                resources.displayMetrics
+            ).toInt()
+            if (scrollY >= threshold) {
+                binding.icBtnShare.setImageResource(R.drawable.ic_share_24)
+                binding.icBtnBack.setImageResource(R.drawable.ic_back_colored_24)
+                binding.tvTitle2.visibility = View.VISIBLE
+                binding.flTitle.setBackgroundColor(
+                    resources.getColor(
+                        R.color.color_white_1000,
+                        null
+                    )
+                )
+            } else {
+                binding.icBtnShare.setImageResource(R.drawable.ic_share_white_24)
+                binding.icBtnBack.setImageResource(R.drawable.ic_back_white_24)
+                binding.tvTitle2.visibility = View.GONE
+                binding.flTitle.setBackgroundColor(resources.getColor(R.color.transparent_color))
             }
-        }
+        })
     }
 
 }

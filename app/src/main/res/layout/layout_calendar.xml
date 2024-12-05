@@ -14,7 +14,7 @@
         android:drawableStart="@drawable/ic_calendar_24"
         android:drawablePadding="12dp"
         android:fontFamily="@font/sf_text_semibold"
-        android:text="Calendar"
+        android:text="Календарь занятий"
         android:textColor="@color/color_dark_1000"
         android:textSize="17sp" />
 
@@ -33,7 +33,6 @@
 
     <FrameLayout
         android:id="@+id/dayTime"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -43,7 +42,7 @@
             android:layout_marginTop="72dp"
             android:drawablePadding="12dp"
             android:fontFamily="@font/sf_text_regular"
-            android:text="Day"
+            android:text="Дни занятий"
             android:textColor="@color/color_dark_900"
             android:textSize="17sp" />
 
@@ -65,7 +64,7 @@
             android:layout_marginTop="120dp"
             android:drawablePadding="12dp"
             android:fontFamily="@font/sf_text_regular"
-            android:text="Time"
+            android:text="Время"
             android:textColor="@color/color_dark_900"
             android:textSize="17sp" />
 

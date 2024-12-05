@@ -22,7 +22,14 @@
         android:id="@+id/profileFragment"
         android:name="com.example.drevmassapp.presentation.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_myBonusFragment"
+            app:destination="@id/myBonusFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_promocodeFragment"
+            app:destination="@id/promocodeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/courseFragment"
         android:name="com.example.drevmassapp.presentation.course.CourseFragment"
@@ -169,4 +176,14 @@
                 app:argType="integer"/>
         </action>
     </fragment>
+    <fragment
+        android:id="@+id/myBonusFragment"
+        android:name="com.example.drevmassapp.presentation.mybonus.MyBonusFragment"
+        android:label="fragment_my_bonus"
+        tools:layout="@layout/fragment_my_bonus" />
+    <fragment
+        android:id="@+id/promocodeFragment"
+        android:name="com.example.drevmassapp.presentation.promocode.PromocodeFragment"
+        android:label="fragment_promocode"
+        tools:layout="@layout/fragment_promocode" />
 </navigation>

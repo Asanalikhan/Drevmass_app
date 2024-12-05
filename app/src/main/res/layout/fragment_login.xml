@@ -165,6 +165,7 @@
         android:background="@drawable/background_btn_50_disabled"
         android:fontFamily="@font/sf_text_semibold"
         android:text="@string/to_login"
+        android:textAllCaps="false"
         android:textColor="@color/color_white_1000"
         android:textSize="17sp"
         app:layout_constraintBottom_toTopOf="@id/ll_login"

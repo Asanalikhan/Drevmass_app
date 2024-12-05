@@ -127,12 +127,12 @@ class CatalogFragment : Fragment(), SortBottomSheetDialog.SortListener {
 
     private fun setupScrollListener() {
         binding.nsCatalog.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
-            val threshold = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                92f,
-                resources.displayMetrics
-            ).toInt()
-            binding.flTitle.visibility = if (scrollY >= threshold) View.VISIBLE else View.GONE
+            if(scrollY > 300){
+                binding.flTitle.visibility = View.VISIBLE
+            }
+            else{
+                binding.flTitle.visibility = View.GONE
+            }
         })
     }
 

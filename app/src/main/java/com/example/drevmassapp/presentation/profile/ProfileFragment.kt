@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.example.drevmassapp.R
 import com.example.drevmassapp.databinding.FragmentProductBinding
 import com.example.drevmassapp.databinding.FragmentProfileBinding
@@ -31,7 +33,18 @@ class ProfileFragment : Fragment() {
         provideNavigationHos()?.apply {
             setNavigationVisibility(true)
         }
-    }
 
+        binding.includePromocode.tv.text = "Промокоды"
+        binding.includePromocode.tv.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(requireContext(), R.drawable.ic_promocode_24), null, null, null)
+
+        binding.flBonus.setOnClickListener {
+            val action = ProfileFragmentDirections.actionProfileFragmentToMyBonusFragment()
+            findNavController().navigate(action)
+        }
+        binding.flPromocode.setOnClickListener {
+            val action = ProfileFragmentDirections.actionProfileFragmentToPromocodeFragment()
+            findNavController().navigate(action)
+        }
+    }
 
 }

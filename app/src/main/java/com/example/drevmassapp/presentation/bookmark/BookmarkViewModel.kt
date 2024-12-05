@@ -34,7 +34,7 @@ class BookmarkViewModel @Inject constructor(
 
     fun getFavorites(){
         viewModelScope.launch(Dispatchers.IO) {
-            _loading.postValue(false)
+            _loading.postValue(true)
             try {
                 val response = useCase.getFavorite()
                 Log.d("BookmarkViewModel", response.toString())
@@ -43,7 +43,7 @@ class BookmarkViewModel @Inject constructor(
             }catch (e: Exception){
                 _error.postValue(e.message)
             }finally {
-                _loading.postValue(true)
+                _loading.postValue(false)
             }
         }
     }
@@ -64,6 +64,7 @@ class BookmarkViewModel @Inject constructor(
 
     fun deleteFavorite(lesson_id: Int){
         viewModelScope.launch(Dispatchers.IO) {
+            _loading.postValue(true)
             try {
                 val response = useCase.deleteFavorite(lesson_id)
                 Log.d("BookmarkViewModel", "deleteFavorite: $response")
@@ -72,6 +73,8 @@ class BookmarkViewModel @Inject constructor(
             }catch (e: Exception){
                 Log.e("BookmarkViewModel", "Error deleting favorite", e)
                 _error.postValue(e.message)
+            }finally {
+                _loading.postValue(false)
             }
         }
     }

@@ -51,6 +51,10 @@
     <color name="btn_thumb">#E0DEDD</color>
     <color name="border_secondary">#EFEBE9</color>
     <color name="transparent_color">#00000000</color> <!-- Fully transparent -->
+    <color name="bg_bonus">#C0AD88</color>
+    <color name="promocode">#765657</color>
+    <color name="white_94">#F0FFFFFF</color>
+    <color name="white_60">#99FFFFFF</color>
 
 
 </resources>

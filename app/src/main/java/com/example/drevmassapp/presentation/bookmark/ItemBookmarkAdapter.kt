@@ -1,5 +1,6 @@
 package com.example.drevmassapp.presentation.bookmark
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -8,14 +9,13 @@ import com.bumptech.glide.Glide
 import com.example.drevmassapp.R
 import com.example.drevmassapp.data.remote.ServiceBuilder
 import com.example.drevmassapp.databinding.ItemLessonBinding
-import com.example.drevmassapp.domain.model.CourseByIdResponse
-import com.example.drevmassapp.domain.model.FavoriteResponse
 import com.example.drevmassapp.domain.model.LessonByIdResponse
 import com.example.drevmassapp.domain.repository.OnItemClickListener
 import com.example.drevmassapp.domain.repository.OnQuantityClickListener
 import com.example.drevmassapp.utils.FavoriteDiffCallback
 
-class ItemBookmarkAdapter : ListAdapter<LessonByIdResponse, ItemBookmarkAdapter.ItemBookmarkViewHolder>(FavoriteDiffCallback()) {
+class ItemBookmarkAdapter :
+    ListAdapter<LessonByIdResponse, ItemBookmarkAdapter.ItemBookmarkViewHolder>(FavoriteDiffCallback()) {
 
     private lateinit var itemClickListener: OnItemClickListener
     private lateinit var bookmarkClickListener: OnQuantityClickListener
@@ -67,6 +67,8 @@ class ItemBookmarkAdapter : ListAdapter<LessonByIdResponse, ItemBookmarkAdapter.
                 val currentList = currentList.toMutableList()
                 currentList.removeAt(adapterPosition)
                 submitList(currentList)
+                notifyItemRemoved(adapterPosition)
+                Log.d("ItemAdapter", "$currentList")
             }
         }
 

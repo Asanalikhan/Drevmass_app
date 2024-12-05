@@ -16,6 +16,8 @@ import com.example.drevmassapp.data.remote.ServiceBuilder
 import com.example.drevmassapp.databinding.FragmentLessonBinding
 import com.example.drevmassapp.domain.model.CourseByIdResponse
 import com.example.drevmassapp.domain.repository.OnItemClickListener
+import com.example.drevmassapp.domain.repository.OnQuantityClickListener
+import com.example.drevmassapp.presentation.basket.BasketViewModel
 import com.example.drevmassapp.presentation.bookmark.BookmarkViewModel
 import com.example.drevmassapp.presentation.catalog.CatalogAdapter
 import com.example.drevmassapp.presentation.product.ProductFragmentDirections
@@ -30,6 +32,7 @@ class LessonFragment : Fragment() {
     private val binding get() = _binding
     private val viewModel: LessonViewModel by viewModels()
     private val viewModelBookmark: BookmarkViewModel by viewModels()
+    private val viewModelBasket: BasketViewModel by viewModels()
     private val args by navArgs<LessonFragmentArgs>()
     private lateinit var productAdapter: CatalogAdapter
     private var isFavorite = false
@@ -112,6 +115,15 @@ class LessonFragment : Fragment() {
             override fun onItemClick(id: Int?) {
                 val action = LessonFragmentDirections.actionLessonFragmentToProductFragment(id!!)
                 findNavController().navigate(action)
+            }
+        })
+        productAdapter.setOnItemQuantityClickListener(object : OnQuantityClickListener{
+            override fun onQuantityChanged(newQuantity: Int, productId: Int, increase: Boolean) {
+                if(increase){
+                    viewModelBasket.addBasket(1, productId, 1)
+                }else{
+                    viewModelBasket.deleteById(productId)
+                }
             }
         })
     }
