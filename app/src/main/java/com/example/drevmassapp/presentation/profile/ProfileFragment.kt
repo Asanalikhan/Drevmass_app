@@ -45,6 +45,10 @@ class ProfileFragment : Fragment() {
             val action = ProfileFragmentDirections.actionProfileFragmentToPromocodeFragment()
             findNavController().navigate(action)
         }
+        binding.flMyData.setOnClickListener {
+            val action = ProfileFragmentDirections.actionProfileFragmentToMyDataFragment()
+            findNavController().navigate(action)
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/FullHeightBottomSheet</item>
     </style>
@@ -22,5 +23,22 @@
     <style name="RoundedImage">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">56dp</item>
+    </style>
+
+    <style name="FieldLayout">
+        <item name="errorIconDrawable">@null</item>
+        <item name="hintEnabled">true</item>
+        <item name="boxStrokeColor">@color/box_stroke_color</item>
+        <item name="hintTextColor">@color/box_stroke_color</item>
+        <item name="errorTextColor">@color/color_coral_1000</item>
+        <item name="boxBackgroundMode">filled</item>
+        <item name="endIconMode">clear_text</item>
+        <item name="cursorColor">@color/color_dark_1000</item>
+    </style>
+    <style name="FieldET">
+        <item name="fontFamily">@font/sf_text_semibold</item>
+        <item name="android:inputType">textNoSuggestions</item>
+        <item name="android:textColor">@color/color_dark_1000</item>
+        <item name="android:textSize">17sp</item>
     </style>
 </resources>
