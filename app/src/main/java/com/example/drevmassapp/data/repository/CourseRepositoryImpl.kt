@@ -8,7 +8,6 @@ import com.example.drevmassapp.data.remote.ServiceBuilder
 import com.example.drevmassapp.domain.model.CourseBonusResponse
 import com.example.drevmassapp.domain.model.CourseByIdResponse
 import com.example.drevmassapp.domain.model.CourseGetResponse
-import com.example.drevmassapp.domain.model.FavoriteGetResponse
 import com.example.drevmassapp.domain.model.FavoriteResponse
 import com.example.drevmassapp.domain.model.ForgotModel
 import com.example.drevmassapp.domain.model.LessonByIdResponse

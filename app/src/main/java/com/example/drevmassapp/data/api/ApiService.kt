@@ -5,7 +5,6 @@ import com.example.drevmassapp.domain.model.BasketRequest
 import com.example.drevmassapp.domain.model.CourseBonusResponse
 import com.example.drevmassapp.domain.model.CourseByIdResponse
 import com.example.drevmassapp.domain.model.CourseGetResponse
-import com.example.drevmassapp.domain.model.FavoriteGetResponse
 import com.example.drevmassapp.domain.model.FavoriteResponse
 import com.example.drevmassapp.domain.model.ForgotModel
 import com.example.drevmassapp.domain.model.LessonByIdResponse
@@ -13,8 +12,11 @@ import com.example.drevmassapp.domain.model.LoginModel
 import com.example.drevmassapp.domain.model.LoginResponse
 import com.example.drevmassapp.domain.model.ProductByIdResponse
 import com.example.drevmassapp.domain.model.ProductResponse
+import com.example.drevmassapp.domain.model.ResetPasswordModel
 import com.example.drevmassapp.domain.model.SignupModel
 import com.example.drevmassapp.domain.model.SignupResponse
+import com.example.drevmassapp.domain.model.UserInformationModel
+import com.example.drevmassapp.domain.model.UserResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.Field
@@ -22,7 +24,6 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
-import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -143,6 +144,33 @@ interface ApiService {
     @DELETE("api/favorites/{lessonid}")
     suspend fun deleteFavorite(
         @Path("lessonid") lessonId: Int,
+        @Header("Authorization") token: String
+    ): ForgotModel
+
+    @GET("api/user")
+    suspend fun getUser(
+        @Header("Authorization") token: String
+    ): UserResponse
+
+    @DELETE("api/user")
+    suspend fun deleteUser(
+        @Header("Authorization") token: String
+    ): ForgotModel
+
+    @GET("api/user/information")
+    suspend fun getUserInformation(
+        @Header("Authorization") token: String
+    ): UserInformationModel
+
+    @POST("api/user/information")
+    suspend fun setUserInformation(
+        @Body() userModel: UserInformationModel,
+        @Header("Authorization") token: String
+    ): UserInformationModel
+
+    @POST("api/reset_password")
+    suspend fun resetPassword(
+        @Body() resetPassword: ResetPasswordModel,
         @Header("Authorization") token: String
     ): ForgotModel
 

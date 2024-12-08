@@ -11,19 +11,22 @@ import android.view.Window
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.drevmassapp.R
 import com.example.drevmassapp.data.local.PreferencesManager
 import com.example.drevmassapp.data.repository.PreferencesRepositoryImpl
 import com.example.drevmassapp.databinding.FragmentProfileBinding
 import com.example.drevmassapp.utils.provideNavigationHos
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
 
     private lateinit var _binding: FragmentProfileBinding
     private val binding get() = _binding
     private lateinit var preferencesRepository: PreferencesRepositoryImpl
+    private val viewModel: ProfileViewModel by viewModels()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -78,6 +81,12 @@ class ProfileFragment : Fragment() {
         }
         binding.btnExit.setOnClickListener {
             exit()
+        }
+
+        viewModel.getUser()
+        viewModel.user.observe(viewLifecycleOwner){ user ->
+            binding.tvName.text = user.name
+            binding.tvNumber.text = user.phoneNumber
         }
 
     }

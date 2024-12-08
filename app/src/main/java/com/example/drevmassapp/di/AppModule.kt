@@ -5,13 +5,16 @@ import com.example.drevmassapp.data.local.PreferencesManager
 import com.example.drevmassapp.data.repository.AuthRepositoryImpl
 import com.example.drevmassapp.data.repository.CatalogRepositoryImpl
 import com.example.drevmassapp.data.repository.CourseRepositoryImpl
+import com.example.drevmassapp.data.repository.ProfileRepositoryImpl
 import com.example.drevmassapp.domain.model.CourseGetResponse
 import com.example.drevmassapp.domain.repository.AuthRepository
 import com.example.drevmassapp.domain.repository.CatalogRepository
 import com.example.drevmassapp.domain.repository.CourseRepository
+import com.example.drevmassapp.domain.repository.ProfileRepository
 import com.example.drevmassapp.domain.usecase.AuthUseCase
 import com.example.drevmassapp.domain.usecase.CatalogUseCase
 import com.example.drevmassapp.domain.usecase.CourseUseCase
+import com.example.drevmassapp.domain.usecase.ProfileUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -53,6 +56,17 @@ object AppModule {
     @Singleton
     fun provideCourseUseCase(courseRepository: CourseRepository): CourseUseCase{
         return CourseUseCase(courseRepository)
+    }
+
+    @Provides
+    fun provideProfileRepository(@ApplicationContext context: Context): ProfileRepository{
+        return ProfileRepositoryImpl(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideProfileUseCase(profileRepository: ProfileRepository): ProfileUseCase {
+        return ProfileUseCase(profileRepository)
     }
 
 }

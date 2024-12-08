@@ -5,16 +5,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
 import com.example.drevmassapp.R
 import com.example.drevmassapp.databinding.BottomSheetChangePasswordBinding
+import com.example.drevmassapp.domain.model.ResetPasswordModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ChangePasswordBottomDialog: BottomSheetDialogFragment() {
 
     private lateinit var _binding: BottomSheetChangePasswordBinding
     private val binding get() = _binding
+    private val viewModel: ProfileViewModel by viewModels()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
@@ -54,6 +60,20 @@ class ChangePasswordBottomDialog: BottomSheetDialogFragment() {
             dismiss()
         }
 
+        binding.btnConfirm.setOnClickListener {
+            val oldPassword = binding.etPassword1.text.toString()
+            val newPassword = binding.etPassword2.text.toString()
+            viewModel.resetPassword(ResetPasswordModel(oldPassword, newPassword))
+            viewModel.error.observe(viewLifecycleOwner){
+                if(it.isNullOrEmpty()){
+                    Toast.makeText(requireContext(), "Успешно обновлено", Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    Toast.makeText(requireContext(), "Повторите попозже", Toast.LENGTH_SHORT).show()
+                }
+            }
+            dismiss()
+        }
     }
 
     private fun setupFullHeight(bottomSheet: View) {
