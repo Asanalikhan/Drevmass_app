@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/color_white_1000"
+    app:cardCornerRadius="14dp">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:text="Вы действительно хотите выйти?"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_dark_1000"
+            android:gravity="center"
+            android:fontFamily="@font/sf_text_semibold"
+            android:textSize="17sp"
+            android:layout_marginTop="24dp"
+            android:layout_marginHorizontal="16dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@android:color/darker_gray"/>
+
+            <TextView
+                android:id="@+id/btn_stay_in_app"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/guideline"
+                android:text="Остаться"
+                android:textColor="@color/color_blue_1000"
+                android:gravity="center"
+                android:paddingVertical="11dp"
+                android:fontFamily="@font/sf_text_regular"
+                android:textSize="17sp" />
+
+            <View
+                android:id="@+id/guideline"
+                android:layout_width="1dp"
+                android:layout_height="55dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_logout"
+                app:layout_constraintStart_toEndOf="@id/btn_stay_in_app"
+
+                android:background="@android:color/darker_gray"
+                android:orientation="vertical"/>
+
+            <TextView
+                android:id="@+id/btn_logout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline"
+                android:text="Выйти"
+                android:textColor="@color/color_coral_1000"
+                android:gravity="center"
+                android:paddingVertical="11dp"
+                android:fontFamily="@font/sf_text_regular"
+                android:textSize="17sp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

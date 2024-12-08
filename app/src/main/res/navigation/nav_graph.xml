@@ -32,6 +32,12 @@
         <action
             android:id="@+id/action_profileFragment_to_myDataFragment"
             app:destination="@id/myDataFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_informationFragment"
+            app:destination="@id/informationFragment" />
     </fragment>
     <fragment
         android:id="@+id/courseFragment"
@@ -194,4 +200,14 @@
         android:name="com.example.drevmassapp.presentation.mydata.MyDataFragment"
         android:label="fragment_my_data"
         tools:layout="@layout/fragment_my_data" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.example.drevmassapp.presentation.profile.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
+    <fragment
+        android:id="@+id/informationFragment"
+        android:name="com.example.drevmassapp.presentation.information.InformationFragment"
+        android:label="fragment_information"
+        tools:layout="@layout/fragment_information" />
 </navigation>

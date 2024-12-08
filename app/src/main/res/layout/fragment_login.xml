@@ -10,7 +10,7 @@
     <include
         android:id="@+id/iv_background"
         layout="@layout/notification_error"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_container"

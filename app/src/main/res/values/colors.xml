@@ -55,6 +55,8 @@
     <color name="promocode">#765657</color>
     <color name="white_94">#F0FFFFFF</color>
     <color name="white_60">#99FFFFFF</color>
+    <color name="primary_50">#F8EEFF</color>
+    <color name="primary_500">#6D1EE7</color>
 
 
 </resources>

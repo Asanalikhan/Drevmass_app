@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_view_24"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="О компании"
+        android:layout_marginTop="11dp"
+        android:textColor="@color/color_dark_1000"
+        android:textSize="17sp"
+        android:fontFamily="@font/sf_text_semibold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+        android:id="@+id/tvClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="@color/color_blue_1000"
+        android:text="Закрыть"
+        android:layout_margin="12dp"
+        android:fontFamily="@font/sf_text_semibold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv"
+        android:layout_width="0dp"
+        android:layout_height="189dp"
+        android:src="@drawable/png_company"
+        android:layout_marginTop="27dp"
+        app:layout_constraintTop_toBottomOf="@id/tvClose"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="16dp"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/RoundedCornersImage"/>
+    
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Мы на рынке с 2012 года. С маленького цеха наше производство стало мини-заводом, а наш массажер стал входить в реестр медицинских изделий.
+За эти годы мы продали более 50000 массажеров и получили более 1000 отзывов. Когда мы начинали, то даже и представить не могли насколько полезную вещь мы делаем. Отзывы людей и истории выздоровлений нас очень вдохновляют.Мы уже сняли более 100 отзывов и интервью с нашими клиентами на нашем Ютуб канале. Каждый год растём и улучшаем продукт.
+«Мне хочется, чтобы каждый человек смог легко и просто избавиться от боли в спине. Избежать крупных трат и поддерживать здоровье своего позвоночника каждый день. Древмасс это один из простых способов. Это как основа и фундамент. Он позволяет сначала Вам избавится от боли, а потом начать применять другие методы оздоровления, тем самым внедряя в вашу жизнь культуру ухода за телом. Причина всех болезней кроется внутри нас самих, а основной причиной является банальная лень. За свой продукт и за то, что я делаю, я отвечаю своим именем.»"
+        android:textColor="@color/color_dark_1000"
+        android:textSize="16sp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/sf_text_regular"
+        app:layout_constraintTop_toBottomOf="@id/iv"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

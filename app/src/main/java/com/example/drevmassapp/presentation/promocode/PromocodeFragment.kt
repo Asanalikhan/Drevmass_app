@@ -1,16 +1,15 @@
 package com.example.drevmassapp.presentation.promocode
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.drevmassapp.R
-import com.example.drevmassapp.databinding.FragmentProductBinding
 import com.example.drevmassapp.databinding.FragmentPromocodeBinding
+import com.example.drevmassapp.presentation.mybonus.BonusInfoBottomSheetDialog
 import com.example.drevmassapp.utils.provideNavigationHos
-import kotlinx.coroutines.processNextEventInCurrentThread
 
 class PromocodeFragment : Fragment() {
 

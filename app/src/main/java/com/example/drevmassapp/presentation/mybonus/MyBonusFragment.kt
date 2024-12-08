@@ -55,5 +55,9 @@ class MyBonusFragment : Fragment() {
         binding.icBtnBack.setOnClickListener {
             findNavController().popBackStack()
         }
+        binding.icBtnInfo.setOnClickListener {
+            val bottomSheet = BonusInfoBottomSheetDialog()
+            bottomSheet.show(parentFragmentManager, bottomSheet.tag)
+        }
     }
 }

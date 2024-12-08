@@ -12,4 +12,8 @@ class PreferencesRepositoryImpl(private val preferencesManager: PreferencesManag
     override fun getUserToken(): String {
         return preferencesManager.getString("user_token")
     }
+
+    override fun deleteUserToken() {
+        preferencesManager.remove("user_token")
+    }
 }
